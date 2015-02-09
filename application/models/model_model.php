@@ -55,5 +55,34 @@ class model_model extends CI_Model
 		
 		return $return;
 	}
+    
+	public function gettypedropdown()
+	{
+		$status= array(
+			 "1" => "Horizontal",
+			 "0" => "Verticle"
+			);
+		return $status;
+	}
+    
+    public function saveorder($id,$order)
+    {
+        $data=array("order" => $order);
+        $this->db->where( "id", $id );
+        $query=$this->db->update( "anima_albumimage", $data );
+        return 1;
+    }
+    public function savemodelorder($id,$order)
+    {
+        $data=array("order" => $order);
+        $this->db->where( "id", $id );
+        $query=$this->db->update( "anima_modelimage", $data );
+        return 1;
+    }
+    public function viewmodelimage($id)
+    {
+        $query=$this->db->query("SELECT * FROM `anima_modelimage` WHERE `model`='$id' ORDER BY `order`")->result();
+        return $query;
+    }
 }
 ?>

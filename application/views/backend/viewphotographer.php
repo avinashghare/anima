@@ -19,6 +19,7 @@
                             <th data-field="city">City</th>
                             <th data-field="order">Order</th>
                             <th data-field="content">Content</th>
+                            <th data-field="action">Action</th>
                         </tr>
                     </thead>
                     <tbody>

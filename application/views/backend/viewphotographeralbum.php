@@ -20,6 +20,7 @@
                             <th data-field="image">Image</th>
                             <th data-field="tab">Tab</th>
                             <th data-field="photographer">Photographer</th>
+                            <th data-field="action">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,7 +31,10 @@
         </section>
         <script>
             function drawtable(resultrow) {
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + resultrow.order + "</td><td>" + resultrow.image + "</td><td>" + resultrow.tab + "</td><td>" + resultrow.photographer + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editphotographeralbum?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletephotographeralbum?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
+                
+                var logo="<img src='<?php echo base_url('/uploads/');?>/" + resultrow.image + "' width=100px;>";
+                
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + resultrow.order + "</td><td>" + logo + "</td><td>" + resultrow.tab + "</td><td>" + resultrow.photographername + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editphotographeralbum?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletephotographeralbum?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
             }
             generatejquery("<?php echo $base_url;?>");
         </script>

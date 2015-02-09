@@ -12,6 +12,13 @@
             </header>
             <div class="panel-body">
                 <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createalbumimagesubmit");?>' enctype='multipart/form-data'>
+                       
+                        <div class=" form-group" style="dicplay:none;">
+                            <label class="col-sm-2 control-label" for="normal-field">Photographer Album</label>
+                            <div class="col-sm-4">
+                                <input type="text" id="normal-field" class="form-control" name="photographeralbum" value='<?php echo set_value(' photographeralbum ',$photographeralbum);?>'>
+                            </div>
+                        </div>
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Name</label>
@@ -25,12 +32,22 @@
                                 <input type="file" id="normal-field" class="form-control" name="image" value='<?php echo set_value(' image ');?>'>
                             </div>
                         </div>
+                          
+                        <div class=" form-group">
+                          <label class="col-sm-2 control-label">Select type</label>
+                          <div class="col-sm-4">
+                            <?php 	 echo form_dropdown('type',$type,set_value('type'),'id="typeid" onchange="operatorcategories()" class="chzn-select form-control" 	data-placeholder="Choose a type..."');
+                            ?>
+                          </div>
+                        </div>
+<!--
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Type</label>
                             <div class="col-sm-4">
                                 <input type="text" id="normal-field" class="form-control" name="type" value='<?php echo set_value(' type ');?>'>
                             </div>
                         </div>
+-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Order</label>
                             <div class="col-sm-4">
@@ -43,12 +60,6 @@
                                 <textarea name="json" id="" cols="20" rows="10" class="form-control tinymce">
                                     <?php echo set_value( 'json');?>
                                 </textarea>
-                            </div>
-                        </div>
-                        <div class=" form-group">
-                            <label class="col-sm-2 control-label" for="normal-field">Photographer Album</label>
-                            <div class="col-sm-4">
-                                <?php echo form_dropdown( "photographeralbum",$photographeralbum,set_value( 'photographeralbum'), "class='chzn-select form-control'");?>
                             </div>
                         </div>
                         <div class="form-group">

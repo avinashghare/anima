@@ -1,6 +1,6 @@
 <div class="row" style="padding:1% 0">
     <div class="col-md-12">
-        <a class="btn btn-primary pull-right" href="<?php echo site_url("site/createphotographervideo"); ?>"><i class="icon-plus"></i>Create </a> &nbsp;
+        <a class="btn btn-primary pull-right" href="<?php echo site_url("site/createphotographervideo?id=").$this->input->get('id'); ?>"><i class="icon-plus"></i>Create </a> &nbsp;
     </div>
 </div>
 <div class="row">
@@ -29,7 +29,7 @@
         </section>
         <script>
             function drawtable(resultrow) {
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.photographer + "</td><td>" + resultrow.video + "</td><td>" + resultrow.order + "</td><td>" + resultrow.photographeralbum + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editphotographervideo?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletephotographervideo?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.photographer + "</td><td>" + resultrow.video + "</td><td>" + resultrow.order + "</td><td>" + resultrow.photographeralbum + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editphotographervideo?id=');?>" + resultrow.photographeralbum + "&photographervideo="+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletephotographervideo?id='); ?>" + resultrow.photographeralbum + "&photographervideo="+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
             }
             generatejquery("<?php echo $base_url;?>");
         </script>

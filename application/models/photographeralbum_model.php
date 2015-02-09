@@ -19,6 +19,12 @@ class photographeralbum_model extends CI_Model
         $query=$this->db->get("anima_photographeralbum")->row();
         return $query;
     }
+    public function viewphotographeralbum($id)
+    {
+        $this->db->where("photographer",$id);
+        $query=$this->db->get("anima_photographeralbum")->result();
+        return $query;
+    }
     function getsinglephotographeralbum($id)
     {
         $this->db->where("id",$id);

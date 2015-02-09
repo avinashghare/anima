@@ -18,6 +18,7 @@
                             <th data-field="name">Name</th>
                             <th data-field="json">Json</th>
                             <th data-field="image">Image</th>
+                            <th data-field="action">Action</th>
                         </tr>
                     </thead>
                     <tbody>

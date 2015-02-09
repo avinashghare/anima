@@ -1151,10 +1151,23 @@ class Site extends CI_Controller
         $data["page"]="viewmodelimage";
         $data["page2"]="block/modelblock";
         $data["before"]=$this->model_model->beforeedit($this->input->get("id"));
-        $data["base_url"]=site_url("site/viewmodelimagejson?id=$modelid");
-        $data["title"]="View modelimage";
+        $data["table"]=$this->model_model->viewmodelimage($this->input->get("id"));
+//        $data["base_url"]=site_url("site/viewmodelimagejson?id=$modelid");
+        $data["title"]="View Model Image";
         $this->load->view("templatewith2",$data);
     }
+//    public function viewmodelimage()
+//    {
+//        $access=array("1");
+//        $this->checkaccess($access);
+//        $modelid=$this->input->get('id');
+//        $data["page"]="viewmodelimage";
+//        $data["page2"]="block/modelblock";
+//        $data["before"]=$this->model_model->beforeedit($this->input->get("id"));
+//        $data["base_url"]=site_url("site/viewmodelimagejson?id=$modelid");
+//        $data["title"]="View modelimage";
+//        $this->load->view("templatewith2",$data);
+//    }
     function viewmodelimagejson()
     {
         $id=$this->input->get('id');
@@ -1226,6 +1239,7 @@ class Site extends CI_Controller
         $access=array("1");
         $this->checkaccess($access);
         $modelid=$this->input->get('id');
+        $data['type']=$this->model_model->gettypedropdown();
         $data['modelid']=$modelid;
         $data["page"]="createmodelimage";
         $data["title"]="Create modelimage";
@@ -1244,6 +1258,7 @@ class Site extends CI_Controller
             $data["alerterror"]=validation_errors();
             $modelid=$this->input->get_post('id');
             $data['modelid']=$modelid;
+            $data['type']=$this->model_model->gettypedropdown();
             $data["page"]="createmodelimage";
             $data["title"]="Create modelimage";
             $this->load->view("template",$data);
@@ -1301,6 +1316,7 @@ class Site extends CI_Controller
         $this->checkaccess($access);
         $data['modelid']=$this->input->get('id');
         $data['modelimageid']=$this->input->get('modelimageid');
+        $data['type']=$this->model_model->gettypedropdown();
         $data["page"]="editmodelimage";
         $data["title"]="Edit modelimage";
         $data["before"]=$this->modelimage_model->beforeedit($this->input->get("modelimageid"));
@@ -1322,6 +1338,7 @@ class Site extends CI_Controller
             $data['modelimageid']=$this->input->get_post('modelimageid');
             $data["page"]="editmodelimage";
             $data["title"]="Edit modelimage";
+            $data['type']=$this->model_model->gettypedropdown();
             $data["before"]=$this->modelimage_model->beforeedit($this->input->get("modelimageid"));
             $this->load->view("template",$data);
         }
@@ -1494,48 +1511,54 @@ class Site extends CI_Controller
     {
         $access=array("1");
         $this->checkaccess($access);
+        $modelid=$this->input->get('id');
+        $modelvideoid=$this->input->get('modelvideoid');
         $data["page"]="editmodelvideo";
         $data["title"]="Edit modelvideo";
-        $data["before"]=$this->modelvideo_model->beforeedit($this->input->get("id"));
+        $data["before"]=$this->modelvideo_model->beforeedit($this->input->get("modelvideoid"));
         $this->load->view("template",$data);
     }
     public function editmodelvideosubmit()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $this->form_validation->set_rules("id","ID","trim");
-    $this->form_validation->set_rules("model","Model","trim");
-    $this->form_validation->set_rules("video","Video","trim");
-    $this->form_validation->set_rules("order","Order","trim");
-    if($this->form_validation->run()==FALSE)
-    {
-    $data["alerterror"]=validation_errors();
-    $data["page"]="editmodelvideo";
-    $data["title"]="Edit modelvideo";
-    $data["before"]=$this->modelvideo_model->beforeedit($this->input->get("id"));
-    $this->load->view("template",$data);
-    }
-    else
-    {
-    $id=$this->input->get_post("id");
-    $model=$this->input->get_post("model");
-    $video=$this->input->get_post("video");
-    $order=$this->input->get_post("order");
-    if($this->modelvideo_model->edit($id,$model,$video,$order)==0)
-    $data["alerterror"]="New modelvideo could not be Updated.";
-    else
-    $data["alertsuccess"]="modelvideo Updated Successfully.";
-    $data["redirect"]="site/viewmodelvideo";
-    $this->load->view("redirect",$data);
-    }
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("modelid","Modelid","trim");
+        $this->form_validation->set_rules("video","Video","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $modelid=$this->input->get_post('id');
+            $modelvideoid=$this->input->get_post('modelvideoid');
+            $data["page"]="editmodelvideo";
+            $data["title"]="Edit modelvideo";
+            $data["before"]=$this->modelvideo_model->beforeedit($this->input->get("modelvideoid"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->get_post("id");
+            $modelid=$this->input->get_post("modelid");
+            $video=$this->input->get_post("video");
+            $order=$this->input->get_post("order");
+            if($this->modelvideo_model->edit($id,$modelid,$video,$order)==0)
+                $data["alerterror"]="New modelvideo could not be Updated.";
+            else
+                $data["alertsuccess"]="modelvideo Updated Successfully.";
+            $data["redirect"]="site/viewmodelvideo?id=".$modelid;
+            $this->load->view("redirect",$data);
+        }
     }
     public function deletemodelvideo()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $this->modelvideo_model->delete($this->input->get("id"));
-    $data["redirect"]="site/viewmodelvideo";
-    $this->load->view("redirect",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $modelid=$this->input->get('id');
+        $modelvideoid=$this->input->get('modelvideoid');
+        $this->modelvideo_model->delete($this->input->get("modelvideoid"));
+        $data["redirect"]="site/viewmodelvideo?id=".$modelid;
+        $this->load->view("redirect",$data);
     }
     public function viewphotographer()
     {
@@ -1734,6 +1757,12 @@ class Site extends CI_Controller
         $elements[5]->header="Photographer";
         $elements[5]->alias="photographer";
         
+        $elements[6]=new stdClass();
+        $elements[6]->field="`anima_photographer`.`name`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Photographername";
+        $elements[6]->alias="photographername";
+        
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -1749,7 +1778,7 @@ class Site extends CI_Controller
             $orderby="id";
             $orderorder="ASC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_photographeralbum`");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_photographeralbum` LEFT OUTER JOIN `anima_photographer` ON `anima_photographer`.`id`=`anima_photographeralbum`.`photographer`");
         $this->load->view("json",$data);
     }
 
@@ -1829,10 +1858,11 @@ class Site extends CI_Controller
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="editphotographeralbum";
+        $data["page2"]="block/photographeralbumblock";
         $data["title"]="Edit photographeralbum";
         $data['photographer']=$this->photographer_model->getphotographerdropdown();
         $data["before"]=$this->photographeralbum_model->beforeedit($this->input->get("id"));
-        $this->load->view("template",$data);
+        $this->load->view("templatewith2",$data);
     }
     public function editphotographeralbumsubmit()
     {
@@ -1921,303 +1951,429 @@ class Site extends CI_Controller
     }
     public function viewalbumimage()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $data["page"]="viewalbumimage";
-    $data["base_url"]=site_url("site/viewalbumimagejson");
-    $data["title"]="View albumimage";
-    $this->load->view("template",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $photographeralbumid=$this->input->get('id');
+        $data["page"]="viewalbumimage";
+        $data["page2"]="block/photographeralbumblock";
+        $data["before"]=$this->photographeralbum_model->beforeedit($this->input->get("id"));
+//        $data["table"]=$this->photographeralbum_model->viewphotographeralbum($this->input->get("id"));
+        $data["table"]=$this->albumimage_model->viewalbumimage($this->input->get("id"));
+//        print_r($data["table"]);
+//        $data["base_url"]=site_url("site/viewalbumimagejson?id=$photographeralbumid");
+        $data["title"]="View albumimage";
+        $this->load->view("templatewith2",$data);
     }
+//    public function viewalbumimage()
+//    {
+//        $access=array("1");
+//        $this->checkaccess($access);
+//        $photographeralbumid=$this->input->get('id');
+//        $data["page"]="viewalbumimage";
+//        $data["page2"]="block/photographeralbumblock";
+//        $data["before"]=$this->photographeralbum_model->beforeedit($this->input->get("id"));
+//        $data["base_url"]=site_url("site/viewalbumimagejson?id=$photographeralbumid");
+//        $data["title"]="View albumimage";
+//        $this->load->view("templatewith2",$data);
+//    }
     function viewalbumimagejson()
     {
-    $elements=array();
-    $elements[0]=new stdClass();
-    $elements[0]->field="`anima_albumimage`.`id`";
-    $elements[0]->sort="1";
-    $elements[0]->header="ID";
-    $elements[0]->alias="id";
-    $elements[1]=new stdClass();
-    $elements[1]->field="`anima_albumimage`.`name`";
-    $elements[1]->sort="1";
-    $elements[1]->header="Name";
-    $elements[1]->alias="name";
-    $elements[2]=new stdClass();
-    $elements[2]->field="`anima_albumimage`.`image`";
-    $elements[2]->sort="1";
-    $elements[2]->header="Image";
-    $elements[2]->alias="image";
-    $elements[3]=new stdClass();
-    $elements[3]->field="`anima_albumimage`.`type`";
-    $elements[3]->sort="1";
-    $elements[3]->header="Type";
-    $elements[3]->alias="type";
-    $elements[4]=new stdClass();
-    $elements[4]->field="`anima_albumimage`.`order`";
-    $elements[4]->sort="1";
-    $elements[4]->header="Order";
-    $elements[4]->alias="order";
-    $elements[5]=new stdClass();
-    $elements[5]->field="`anima_albumimage`.`json`";
-    $elements[5]->sort="1";
-    $elements[5]->header="Json";
-    $elements[5]->alias="json";
-    $elements[6]=new stdClass();
-    $elements[6]->field="`anima_albumimage`.`photographeralbum`";
-    $elements[6]->sort="1";
-    $elements[6]->header="Photographer Album";
-    $elements[6]->alias="photographeralbum";
-    $search=$this->input->get_post("search");
-    $pageno=$this->input->get_post("pageno");
-    $orderby=$this->input->get_post("orderby");
-    $orderorder=$this->input->get_post("orderorder");
-    $maxrow=$this->input->get_post("maxrow");
-    if($maxrow=="")
-    {
-    $maxrow=20;
-    }
-    if($orderby=="")
-    {
-    $orderby="id";
-    $orderorder="ASC";
-    }
-    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_albumimage`");
-    $this->load->view("json",$data);
+        $photographeralbumid=$this->input->get('id');
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`anima_albumimage`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`anima_albumimage`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`anima_albumimage`.`image`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Image";
+        $elements[2]->alias="image";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`anima_albumimage`.`type`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Type";
+        $elements[3]->alias="type";
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`anima_albumimage`.`order`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Order";
+        $elements[4]->alias="order";
+        
+        $elements[5]=new stdClass();
+        $elements[5]->field="`anima_albumimage`.`json`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Json";
+        $elements[5]->alias="json";
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`anima_albumimage`.`photographeralbum`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Photographer Album";
+        $elements[6]->alias="photographeralbum";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_albumimage`","WHERE `anima_albumimage`.`photographeralbum`='$photographeralbumid'");
+        $this->load->view("json",$data);
     }
 
     public function createalbumimage()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $data["page"]="createalbumimage";
-    $data["title"]="Create albumimage";
-    $this->load->view("template",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $data['photographeralbum']=$this->input->get('id');
+        $data['type']=$this->model_model->gettypedropdown();
+        $data["page"]="createalbumimage";
+        $data["title"]="Create albumimage";
+        $this->load->view("template",$data);
     }
     public function createalbumimagesubmit() 
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $this->form_validation->set_rules("name","Name","trim");
-    $this->form_validation->set_rules("image","Image","trim");
-    $this->form_validation->set_rules("type","Type","trim");
-    $this->form_validation->set_rules("order","Order","trim");
-    $this->form_validation->set_rules("json","Json","trim");
-    $this->form_validation->set_rules("photographeralbum","Photographer Album","trim");
-    if($this->form_validation->run()==FALSE)
-    {
-    $data["alerterror"]=validation_errors();
-    $data["page"]="createalbumimage";
-    $data["title"]="Create albumimage";
-    $this->load->view("template",$data);
-    }
-    else
-    {
-    $name=$this->input->get_post("name");
-    $image=$this->input->get_post("image");
-    $type=$this->input->get_post("type");
-    $order=$this->input->get_post("order");
-    $json=$this->input->get_post("json");
-    $photographeralbum=$this->input->get_post("photographeralbum");
-    if($this->albumimage_model->create($name,$image,$type,$order,$json,$photographeralbum)==0)
-    $data["alerterror"]="New albumimage could not be created.";
-    else
-    $data["alertsuccess"]="albumimage created Successfully.";
-    $data["redirect"]="site/viewalbumimage";
-    $this->load->view("redirect",$data);
-    }
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("name","Name","trim");
+        $this->form_validation->set_rules("type","Type","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        $this->form_validation->set_rules("json","Json","trim");
+        $this->form_validation->set_rules("photographeralbum","Photographer Album","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data['photographeralbum']=$this->input->get_post('photographeralbum');
+            $data['type']=$this->model_model->gettypedropdown();
+            $data["page"]="createalbumimage";
+            $data["title"]="Create albumimage";
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $name=$this->input->get_post("name");
+            $type=$this->input->get_post("type");
+            $order=$this->input->get_post("order");
+            $json=$this->input->get_post("json");
+            $photographeralbum=$this->input->get_post("photographeralbum");
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            
+            if($this->albumimage_model->create($name,$image,$type,$order,$json,$photographeralbum)==0)
+                $data["alerterror"]="New albumimage could not be created.";
+            else
+                $data["alertsuccess"]="albumimage created Successfully.";
+            $data["redirect"]="site/viewalbumimage?id=".$photographeralbum;
+            $this->load->view("redirect2",$data);
+        }
     }
     public function editalbumimage()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $data["page"]="editalbumimage";
-    $data["title"]="Edit albumimage";
-    $data["before"]=$this->albumimage_model->beforeedit($this->input->get("id"));
-    $this->load->view("template",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $data['photographeralbumid']=$this->input->get('id');
+        $data['photographeralbumimage']=$this->input->get('photographeralbumimage');
+        $data["page"]="editalbumimage";
+        $data["title"]="Edit albumimage";
+        $data['type']=$this->model_model->gettypedropdown();
+        $data["before"]=$this->albumimage_model->beforeedit($this->input->get("photographeralbumimage"));
+        $this->load->view("template",$data);
     }
     public function editalbumimagesubmit()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $this->form_validation->set_rules("id","ID","trim");
-    $this->form_validation->set_rules("name","Name","trim");
-    $this->form_validation->set_rules("image","Image","trim");
-    $this->form_validation->set_rules("type","Type","trim");
-    $this->form_validation->set_rules("order","Order","trim");
-    $this->form_validation->set_rules("json","Json","trim");
-    $this->form_validation->set_rules("photographeralbum","Photographer Album","trim");
-    if($this->form_validation->run()==FALSE)
-    {
-    $data["alerterror"]=validation_errors();
-    $data["page"]="editalbumimage";
-    $data["title"]="Edit albumimage";
-    $data["before"]=$this->albumimage_model->beforeedit($this->input->get("id"));
-    $this->load->view("template",$data);
-    }
-    else
-    {
-    $id=$this->input->get_post("id");
-    $name=$this->input->get_post("name");
-    $image=$this->input->get_post("image");
-    $type=$this->input->get_post("type");
-    $order=$this->input->get_post("order");
-    $json=$this->input->get_post("json");
-    $photographeralbum=$this->input->get_post("photographeralbum");
-    if($this->albumimage_model->edit($id,$name,$image,$type,$order,$json,$photographeralbum)==0)
-    $data["alerterror"]="New albumimage could not be Updated.";
-    else
-    $data["alertsuccess"]="albumimage Updated Successfully.";
-    $data["redirect"]="site/viewalbumimage";
-    $this->load->view("redirect",$data);
-    }
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("name","Name","trim");
+        $this->form_validation->set_rules("type","Type","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        $this->form_validation->set_rules("json","Json","trim");
+        $this->form_validation->set_rules("photographeralbumid","Photographer Album","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data["page"]="editalbumimage";
+            $data["title"]="Edit albumimage";
+            $data['type']=$this->model_model->gettypedropdown();
+            $data["before"]=$this->albumimage_model->beforeedit($this->input->get("id"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->get_post("id");
+            $name=$this->input->get_post("name");
+            $type=$this->input->get_post("type");
+            $order=$this->input->get_post("order");
+            $json=$this->input->get_post("json");
+            $photographeralbum=$this->input->get_post("photographeralbumid");
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
+            
+            if($image=="")
+            {
+            $image=$this->albumimage_model->getalbumimagebyid($id);
+               // print_r($image);
+                $image=$image->image;
+            }
+            
+            if($this->albumimage_model->edit($id,$name,$image,$type,$order,$json,$photographeralbum)==0)
+                $data["alerterror"]="New albumimage could not be Updated.";
+            else
+                $data["alertsuccess"]="albumimage Updated Successfully.";
+            $data["redirect"]="site/viewalbumimage?id=".$photographeralbum;
+            $this->load->view("redirect2",$data);
+        }
     }
     public function deletealbumimage()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $this->albumimage_model->delete($this->input->get("id"));
-    $data["redirect"]="site/viewalbumimage";
-    $this->load->view("redirect",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $photographeralbumid=$this->input->get('id');
+        $photographeralbumimage=$this->input->get('photographeralbumimage');
+        $this->albumimage_model->delete($this->input->get("photographeralbumimage"));
+        $data["redirect"]="site/viewalbumimage?id=".$photographeralbumid;
+        $this->load->view("redirect",$data);
     }
     public function viewphotographervideo()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $data["page"]="viewphotographervideo";
-    $data["base_url"]=site_url("site/viewphotographervideojson");
-    $data["title"]="View photographervideo";
-    $this->load->view("template",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $photographeralbum=$this->input->get('id');
+        $data["page"]="viewphotographervideo";
+        $data["page2"]="block/photographeralbumblock";
+        $data["before"]=$this->photographeralbum_model->beforeedit($this->input->get("id"));
+        $data["base_url"]=site_url("site/viewphotographervideojson?id=$photographeralbum");
+        $data["title"]="View photographervideo";
+        $this->load->view("templatewith2",$data);
     }
     function viewphotographervideojson()
     {
-    $elements=array();
-    $elements[0]=new stdClass();
-    $elements[0]->field="`anima_photographervideo`.`id`";
-    $elements[0]->sort="1";
-    $elements[0]->header="ID";
-    $elements[0]->alias="id";
-    $elements[1]=new stdClass();
-    $elements[1]->field="`anima_photographervideo`.`photographer`";
-    $elements[1]->sort="1";
-    $elements[1]->header="Photographer";
-    $elements[1]->alias="photographer";
-    $elements[2]=new stdClass();
-    $elements[2]->field="`anima_photographervideo`.`video`";
-    $elements[2]->sort="1";
-    $elements[2]->header="Video";
-    $elements[2]->alias="video";
-    $elements[3]=new stdClass();
-    $elements[3]->field="`anima_photographervideo`.`order`";
-    $elements[3]->sort="1";
-    $elements[3]->header="Order";
-    $elements[3]->alias="order";
-    $elements[4]=new stdClass();
-    $elements[4]->field="`anima_photographervideo`.`photographeralbum`";
-    $elements[4]->sort="1";
-    $elements[4]->header="Photographer Album";
-    $elements[4]->alias="photographeralbum";
-    $search=$this->input->get_post("search");
-    $pageno=$this->input->get_post("pageno");
-    $orderby=$this->input->get_post("orderby");
-    $orderorder=$this->input->get_post("orderorder");
-    $maxrow=$this->input->get_post("maxrow");
-    if($maxrow=="")
-    {
-    $maxrow=20;
-    }
-    if($orderby=="")
-    {
-    $orderby="id";
-    $orderorder="ASC";
-    }
-    $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_photographervideo`");
-    $this->load->view("json",$data);
+        $photographeralbum=$this->input->get('id');
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`anima_photographervideo`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`anima_photographervideo`.`photographer`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Photographer";
+        $elements[1]->alias="photographer";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`anima_photographervideo`.`video`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Video";
+        $elements[2]->alias="video";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`anima_photographervideo`.`order`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Order";
+        $elements[3]->alias="order";
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`anima_photographervideo`.`photographeralbum`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Photographer Album";
+        $elements[4]->alias="photographeralbum";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_photographervideo`","WHERE `anima_photographervideo`.`photographeralbum`='$photographeralbum'");
+        $this->load->view("json",$data);
     }
 
     public function createphotographervideo()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $data["page"]="createphotographervideo";
-    $data["title"]="Create photographervideo";
-    $this->load->view("template",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $data['photographeralbum']=$this->input->get('id');
+        $data["page"]="createphotographervideo";
+        $data["title"]="Create photographervideo";
+        $this->load->view("template",$data);
     }
     public function createphotographervideosubmit() 
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $this->form_validation->set_rules("photographer","Photographer","trim");
-    $this->form_validation->set_rules("video","Video","trim");
-    $this->form_validation->set_rules("order","Order","trim");
-    $this->form_validation->set_rules("photographeralbum","Photographer Album","trim");
-    if($this->form_validation->run()==FALSE)
-    {
-    $data["alerterror"]=validation_errors();
-    $data["page"]="createphotographervideo";
-    $data["title"]="Create photographervideo";
-    $this->load->view("template",$data);
-    }
-    else
-    {
-    $photographer=$this->input->get_post("photographer");
-    $video=$this->input->get_post("video");
-    $order=$this->input->get_post("order");
-    $photographeralbum=$this->input->get_post("photographeralbum");
-    if($this->photographervideo_model->create($photographer,$video,$order,$photographeralbum)==0)
-    $data["alerterror"]="New photographervideo could not be created.";
-    else
-    $data["alertsuccess"]="photographervideo created Successfully.";
-    $data["redirect"]="site/viewphotographervideo";
-    $this->load->view("redirect",$data);
-    }
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("photographer","Photographer","trim");
+        $this->form_validation->set_rules("video","Video","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        $this->form_validation->set_rules("photographeralbum","Photographer Album","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data['photographeralbum']=$this->input->get_post('photographeralbum');
+            $data["page"]="createphotographervideo";
+            $data["title"]="Create photographervideo";
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $photographer=$this->input->get_post("photographer");
+            $video=$this->input->get_post("video");
+            $order=$this->input->get_post("order");
+            $photographeralbum=$this->input->get_post("photographeralbum");
+            if($this->photographervideo_model->create($photographer,$video,$order,$photographeralbum)==0)
+                $data["alerterror"]="New photographervideo could not be created.";
+            else
+                $data["alertsuccess"]="photographervideo created Successfully.";
+            $data["redirect"]="site/viewphotographervideo?id=".$photographeralbum;
+            $this->load->view("redirect",$data);
+        }
     }
     public function editphotographervideo()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $data["page"]="editphotographervideo";
-    $data["title"]="Edit photographervideo";
-    $data["before"]=$this->photographervideo_model->beforeedit($this->input->get("id"));
-    $this->load->view("template",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="editphotographervideo";
+        $data["title"]="Edit photographervideo";
+        $data['photographeralbum']=$this->input->get('id');
+        $data['photographervideo']=$this->input->get('photographervideo');
+        $data["before"]=$this->photographervideo_model->beforeedit($this->input->get("photographervideo"));
+        $this->load->view("template",$data);
     }
     public function editphotographervideosubmit()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $this->form_validation->set_rules("id","ID","trim");
-    $this->form_validation->set_rules("photographer","Photographer","trim");
-    $this->form_validation->set_rules("video","Video","trim");
-    $this->form_validation->set_rules("order","Order","trim");
-    $this->form_validation->set_rules("photographeralbum","Photographer Album","trim");
-    if($this->form_validation->run()==FALSE)
-    {
-    $data["alerterror"]=validation_errors();
-    $data["page"]="editphotographervideo";
-    $data["title"]="Edit photographervideo";
-    $data["before"]=$this->photographervideo_model->beforeedit($this->input->get("id"));
-    $this->load->view("template",$data);
-    }
-    else
-    {
-    $id=$this->input->get_post("id");
-    $photographer=$this->input->get_post("photographer");
-    $video=$this->input->get_post("video");
-    $order=$this->input->get_post("order");
-    $photographeralbum=$this->input->get_post("photographeralbum");
-    if($this->photographervideo_model->edit($id,$photographer,$video,$order,$photographeralbum)==0)
-    $data["alerterror"]="New photographervideo could not be Updated.";
-    else
-    $data["alertsuccess"]="photographervideo Updated Successfully.";
-    $data["redirect"]="site/viewphotographervideo";
-    $this->load->view("redirect",$data);
-    }
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("photographer","Photographer","trim");
+        $this->form_validation->set_rules("video","Video","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        $this->form_validation->set_rules("photographeralbum","Photographer Album","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data["page"]="editphotographervideo";
+            $data["title"]="Edit photographervideo";
+            $data["before"]=$this->photographervideo_model->beforeedit($this->input->get("id"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->get_post("id");
+            $photographer=$this->input->get_post("photographer");
+            $video=$this->input->get_post("video");
+            $order=$this->input->get_post("order");
+            $photographeralbum=$this->input->get_post("photographeralbum");
+            if($this->photographervideo_model->edit($id,$photographer,$video,$order,$photographeralbum)==0)
+                $data["alerterror"]="New photographervideo could not be Updated.";
+            else
+                $data["alertsuccess"]="photographervideo Updated Successfully.";
+            $data["redirect"]="site/viewphotographervideo?id=".$photographeralbum;
+            $this->load->view("redirect",$data);
+        }
     }
     public function deletephotographervideo()
     {
-    $access=array("1");
-    $this->checkaccess($access);
-    $this->photographervideo_model->delete($this->input->get("id"));
-    $data["redirect"]="site/viewphotographervideo";
-    $this->load->view("redirect",$data);
+        $access=array("1");
+        $this->checkaccess($access);
+        $photographeralbum=$this->input->get('id');
+        $photographervideo=$this->input->get('photographervideo');
+        $this->photographervideo_model->delete($this->input->get("photographervideo"));
+        $data["redirect"]="site/viewphotographervideo?id=".$photographeralbum;
+        $this->load->view("redirect",$data);
     }
     public function viewarticle()
     {
@@ -2352,5 +2508,23 @@ class Site extends CI_Controller
     $this->load->view("redirect",$data);
     }
 
+    public function saveorder()
+    {
+        $order=$this->input->get('order');
+        $id=$this->input->get('id');
+        $data1=$this->model_model->saveorder($id,$order);
+        $data["message"]=$data1;
+        $this->load->view("json",$data);
+  
+    }
+    public function savemodelorder()
+    {
+        $order=$this->input->get('order');
+        $id=$this->input->get('id');
+        $data1=$this->model_model->savemodelorder($id,$order);
+        $data["message"]=$data1;
+        $this->load->view("json",$data);
+   
+    }
 }
 ?>

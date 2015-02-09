@@ -28,7 +28,7 @@
         </section>
         <script>
             function drawtable(resultrow) {
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.model + "</td><td>" + resultrow.video + "</td><td>" + resultrow.order + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editmodelvideo?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletemodelvideo?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.model + "</td><td>" + resultrow.video + "</td><td>" + resultrow.order + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editmodelvideo?id=');?>" + resultrow.model + "&modelvideoid="+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletemodelvideo?id='); ?>" + resultrow.model + "&modelvideoid="+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
             }
             generatejquery("<?php echo $base_url;?>");
         </script>

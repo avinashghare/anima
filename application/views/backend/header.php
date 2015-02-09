@@ -3,6 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>ANIMA | <?php echo $title; ?></title>
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  
+  <link rel="stylesheet" href="/resources/demos/style.css">
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/bootstrap-reset.css'); ?>" rel="stylesheet">
     <!--external css-->
@@ -26,6 +29,7 @@
     <script src="<?php echo base_url('assets/js/easy-pie-chart.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/chintantable.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/select2.js'); ?>"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <script>
 $(document).ready(function(){
 		$('.datetime').datepicker({

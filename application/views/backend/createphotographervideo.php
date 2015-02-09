@@ -13,12 +13,20 @@
             <div class="panel-body">
                 <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createphotographervideosubmit");?>' enctype='multipart/form-data'>
                     <div class="panel-body">
+                        <div class=" form-group" style="display:none;">
+                            <label class="col-sm-2 control-label" for="normal-field">Photographer Album</label>
+                            <div class="col-sm-4">
+                                <input type="text" id="normal-field" class="form-control" name="photographeralbum" value='<?php echo set_value(' photographeralbum ',$photographeralbum);?>'>
+                            </div>
+                        </div>
+<!--
                         <div class=" form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Photographer</label>
                             <div class="col-sm-4">
                                 <?php echo form_dropdown( "photographer",$photographer,set_value( 'photographer'), "class='chzn-select form-control'");?>
                             </div>
                         </div>
+-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Video</label>
                             <div class="col-sm-4">
@@ -29,12 +37,6 @@
                             <label class="col-sm-2 control-label" for="normal-field">Order</label>
                             <div class="col-sm-4">
                                 <input type="text" id="normal-field" class="form-control" name="order" value='<?php echo set_value(' order ');?>'>
-                            </div>
-                        </div>
-                        <div class=" form-group">
-                            <label class="col-sm-2 control-label" for="normal-field">Photographer Album</label>
-                            <div class="col-sm-4">
-                                <?php echo form_dropdown( "photographeralbum",$photographeralbum,set_value( 'photographeralbum'), "class='chzn-select form-control'");?>
                             </div>
                         </div>
                         <div class="form-group">
