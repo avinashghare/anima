@@ -1307,7 +1307,7 @@ class Site extends CI_Controller
             else
                 $data["alertsuccess"]="modelimage created Successfully.";
             $data["redirect"]="site/viewmodelimage?id=".$modelid;
-            $this->load->view("redirect",$data);
+            $this->load->view("redirect2",$data);
         }
     }
     public function editmodelimage()
@@ -1398,7 +1398,7 @@ class Site extends CI_Controller
             else
                 $data["alertsuccess"]="modelimage Updated Successfully.";
             $data["redirect"]="site/viewmodelimage?id=".$modelid;
-            $this->load->view("redirect",$data);
+            $this->load->view("redirect2",$data);
         }
     }
     public function deletemodelimage()
@@ -1408,7 +1408,7 @@ class Site extends CI_Controller
         $modelid=$this->input->get('id');
         $this->modelimage_model->delete($this->input->get("modelimageid"));
         $data["redirect"]="site/viewmodelimage?id=".$modelid;
-        $this->load->view("redirect",$data);
+        $this->load->view("redirect2",$data);
     }
     public function viewmodelvideo()
     {
@@ -2215,7 +2215,7 @@ class Site extends CI_Controller
         $photographeralbumimage=$this->input->get('photographeralbumimage');
         $this->albumimage_model->delete($this->input->get("photographeralbumimage"));
         $data["redirect"]="site/viewalbumimage?id=".$photographeralbumid;
-        $this->load->view("redirect",$data);
+        $this->load->view("redirect2",$data);
     }
     public function viewphotographervideo()
     {
