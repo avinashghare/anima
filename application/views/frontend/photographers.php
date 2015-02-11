@@ -85,7 +85,7 @@ $this->load->view("frontend/header");
                 foreach($photographer as $row)
                 {
                 ?>
-                <div class="col-5 model_single"><a href="<?php echo site_url('website/photographer_inner'); ?>"><img src="<?php echo base_url('uploads')."/".$row->image; ?>" class="displayed" alt="1"><span class="model_name"><?php echo $row->name;?><br /><?php echo $row->city;?></span></a></div>
+                <div class="col-5 model_single"><a href="<?php echo site_url('website/photographer_inner?id=').$row->id; ?>"><img src="<?php echo base_url('uploads')."/".$row->image; ?>" class="displayed" alt="1"><span class="model_name"><?php echo $row->name;?><br /><?php echo $row->city;?></span></a></div>
                 <?php
                 }
                 ?>

@@ -82,6 +82,10 @@ class Website extends CI_Controller
 	public function photographer_inner( )
 	{
 		$data["page"]="photographer_inner";
+        $id=$this->input->get('id');
+        $data["photographerdetails"]=$this->photographer_model->getphotographerdetails($id);
+        $data["photographeralbumdetails"]=$this->photographer_model->getphotographerdetails($id);
+        $data["albumimages"]=$this->photographer_model->getalbumimages($id);
         $this->load->view("frontend",$data);
 	}
     

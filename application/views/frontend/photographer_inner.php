@@ -126,32 +126,10 @@
     <?php 
 $this->load->view('frontend/header');
 ?>
-        <!--<header class="mobile_menu"> 
-            <a href="index.php"><div class="mobile_logo"></div></a>
-            <div id="dl-menu" class="dl-menuwrapper">
-						<button class="dl-trigger"></button>
-						<ul class="dl-menu">
-							<li>
-								<a href="#">Model</a>
-								<ul class="dl-submenu">
-							        <li><a href="females_in_town.php">Female In Town</a></li>
-							        <li><a href="#">Female Out of Town</a></li>
-							        <li><a href="#">Male In Town</a></li>
-							        <li><a href="#">Male Out of Town</a></li>
-					        	</ul>
-					    </li>
-					    <li><a href="#">Creative Artists</a></li>
-                        <li><a href="#">Agency</a></li>
-                        <li><a href="#">News</a></li>
-						</ul>
-					</div>
-        </header>--> 
-
-
         <div class="container">
             <div class="tab_menu">
-                <a href="photographers.php">Back</a><br />
-                Photographers<span class="photographer_name"><i>Miguel Angelo - Mumbai</i></span>
+                <a href="<?php echo site_url('website/photographers'); ?>">Back</a><br />
+                Photographers<span class="photographer_name"><i><?php echo $photographerdetails->name." - ".$photographerdetails->city;?></i></span>
             </div>
             <div class="photo_tabs">
                 <a href="#" id="editorial_tab">Editorial</a>
@@ -206,6 +184,17 @@ $this->load->view('frontend/header');
             </div>
             </div>
             <div id="beauty">
+            <?php
+                foreach($albumimages as $row)
+                {
+                
+                ?>
+                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url('uploads')."/".$row->image; ?>" class="display" alt="1"><span class="photo_name"><?php echo $row->name;?></span></a></div>
+<!--                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url('uploads')."/".$row->image; ?>" class="display" alt="1"><span class="photo_name"><?php echo $row->name;?></span></a></div>-->
+                <?php
+                } 
+                ?>
+<!--
                 <div class="col-h model_single"><a href="#"><img src="images/photographers/album/coverstories/miguel_1.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
                 
                 <div class="col-h model_single"><a href="#"><img src="images/photographers/album/coverstories/miguel_2.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
@@ -219,6 +208,7 @@ $this->load->view('frontend/header');
                 <div class="col-h model_single"><a href="#"><img src="images/photographers/album/coverstories/miguel_6.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
                 
                 <div class="col-h model_single"><a href="#"><img src="images/photographers/album/coverstories/miguel_7.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>    
+-->
 
             <div id="footer">
                 <hr class="footer_top" />

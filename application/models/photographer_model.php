@@ -72,5 +72,20 @@ class photographer_model extends CI_Model
 		$query=$this->db->query("SELECT `image` FROM `anima_photographer` WHERE `id`='$id'")->row();
 		return $query;
 	}
+    
+    public function getphotographerdetails($id)
+    {
+        $this->db->where("id",$id);
+        $query=$this->db->get("anima_photographer")->row();
+        return $query;
+    }
+    
+    public function getalbumimages($id)
+    {
+        $query=$this->db->query("SELECT `id`, `name`, `image`, `type`, `order`, `json`, `photographeralbum` 
+FROM `anima_albumimage`
+WHERE `photographeralbum` IN (SELECT `id` FROM `anima_photographeralbum` WHERE `photographer`='$id')")->result();
+        return $query;
+    }
 }
 ?>
