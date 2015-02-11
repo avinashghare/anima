@@ -3,9 +3,15 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class photographer_model extends CI_Model
 {
-    public function create($name,$city,$order,$content)
+    public function create($name,$city,$order,$content,$image)
     {
-        $data=array("name" => $name,"city" => $city,"order" => $order,"content" => $content);
+        $data=array(
+            "name" => $name,
+            "city" => $city,
+            "order" => $order,
+            "image" => $image,
+            "content" => $content
+        );
         $query=$this->db->insert( "anima_photographer", $data );
         $id=$this->db->insert_id();
         if(!$query)
@@ -25,9 +31,15 @@ class photographer_model extends CI_Model
         $query=$this->db->get("anima_photographer")->row();
         return $query;
     }
-    public function edit($id,$name,$city,$order,$content)
+    public function edit($id,$name,$city,$order,$content,$image)
     {
-        $data=array("name" => $name,"city" => $city,"order" => $order,"content" => $content);
+        $data=array(
+            "name" => $name,
+            "city" => $city,
+            "order" => $order,
+            "image" => $image,
+            "content" => $content
+        );
         $this->db->where( "id", $id );
         $query=$this->db->update( "anima_photographer", $data );
         return 1;
@@ -49,6 +61,16 @@ class photographer_model extends CI_Model
 		}
 		
 		return $return;
+	}
+    public function hair_makeup()
+    {
+        $query=$this->db->query("SELECT * FROM `anima_photographer` ORDER BY `id`")->result();
+        return $query;
+    }
+    public function getphotographerimagebyid($id)
+	{
+		$query=$this->db->query("SELECT `image` FROM `anima_photographer` WHERE `id`='$id'")->row();
+		return $query;
 	}
 }
 ?>

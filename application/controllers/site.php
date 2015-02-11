@@ -993,6 +993,68 @@ class Site extends CI_Controller
     {
         $access=array("1");
         $this->checkaccess($access);
+        
+            $json=array();
+
+            $json[0]=new stdClass();
+            $json[0]->placeholder="";
+            $json[0]->value="";
+            $json[0]->label="Height";
+            $json[0]->type="text";
+            $json[0]->options="";
+            $json[0]->classes="";
+
+            $json[1]=new stdClass();
+            $json[1]->placeholder="";
+            $json[1]->value="";
+            $json[1]->label="bust";
+            $json[1]->type="text";
+            $json[1]->options="";
+            $json[1]->classes="";
+
+            $json[2]=new stdClass();
+            $json[2]->placeholder="";
+            $json[2]->value="";
+            $json[2]->label="waist";
+            $json[2]->type="text";
+            $json[2]->options="";
+            $json[2]->classes="";
+
+            $json[3]=new stdClass();
+            $json[3]->placeholder="";
+            $json[3]->value="";
+            $json[3]->label="hips";
+            $json[3]->type="text";
+            $json[3]->options="";
+            $json[3]->classes="";
+
+            $json[4]=new stdClass();
+            $json[4]->placeholder="";
+            $json[4]->value="";
+            $json[4]->label="eyes";
+            $json[4]->type="text";
+            $json[4]->options="";
+            $json[4]->classes="";
+
+            $json[5]=new stdClass();
+            $json[5]->placeholder="";
+            $json[5]->value="";
+            $json[5]->label="brown";
+            $json[5]->type="text";
+            $json[5]->options="";
+            $json[5]->classes="";
+
+            $json[6]=new stdClass();
+            $json[6]->placeholder="";
+            $json[6]->value="";
+            $json[6]->label="shoe";
+            $json[6]->type="text";
+            $json[6]->options="";
+            $json[6]->classes="";
+
+
+            $data["fieldjson"]=$json;
+        
         $data["page"]="createmodel";
         $data["title"]="Create model";
         $this->load->view("template",$data);
@@ -1651,7 +1713,40 @@ class Site extends CI_Controller
             $city=$this->input->get_post("city");
             $order=$this->input->get_post("order");
             $content=$this->input->get_post("content");
-            if($this->photographer_model->create($name,$city,$order,$content)==0)
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            
+            
+            if($this->photographer_model->create($name,$city,$order,$content,$image)==0)
                 $data["alerterror"]="New photographer could not be created.";
             else
                 $data["alertsuccess"]="photographer created Successfully.";
@@ -1692,7 +1787,51 @@ class Site extends CI_Controller
             $city=$this->input->get_post("city");
             $order=$this->input->get_post("order");
             $content=$this->input->get_post("content");
-            if($this->photographer_model->edit($id,$name,$city,$order,$content)==0)
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
+            
+            if($image=="")
+            {
+            $image=$this->photographer_model->getphotographerimagebyid($id);
+               // print_r($image);
+                $image=$image->image;
+            }
+            
+            
+            if($this->photographer_model->edit($id,$name,$city,$order,$content,$image)==0)
                 $data["alerterror"]="New photographer could not be Updated.";
             else
                 $data["alertsuccess"]="photographer Updated Successfully.";
