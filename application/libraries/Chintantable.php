@@ -140,7 +140,7 @@ class Chintantable {
             </div>
             <div class="loader" style="
     width: 100%;  
-    position: fixed;  background: rgba(255, 31, 31, 0.431373);  
+    position: fixed;  background:#fff;  
     z-index: 1;  height: 100%;  top: 0px;  left: 0px;  padding: 10%;  font-size: 51px;  color: white;  text-align: center;
 "> Loading </div>';
     }

@@ -7,16 +7,16 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                article Details
+                Article Details
             </header>
             <div class="drawchintantable">
-                <?php $this->chintantable->createsearch("article List");?>
+                <?php $this->chintantable->createsearch("");?>
                 <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0">
                     <thead>
                         <tr>
                             <th data-field="id">ID</th>
                             <th data-field="title">Title</th>
-                            <th data-field="json">Json</th>
+<!--                            <th data-field="json">Json</th>-->
                             <th data-field="content">Content</th>
                         </tr>
                     </thead>
@@ -28,7 +28,7 @@
         </section>
         <script>
             function drawtable(resultrow) {
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.title + "</td><td>" + resultrow.json + "</td><td>" + resultrow.content + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editarticle?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletearticle?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.title + "</td><td>" + resultrow.content + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editarticle?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletearticle?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
             }
             generatejquery("<?php echo $base_url;?>");
         </script>
