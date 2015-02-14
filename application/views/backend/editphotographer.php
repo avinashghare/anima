@@ -11,6 +11,16 @@
                     <input type="text" id="normal-field" class="form-control" name="name" value='<?php echo set_value(' name ',$before->name);?>'>
                 </div>
             </div>
+                           
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label">category</label>
+				  <div class="col-sm-4">
+					<?php
+						
+						echo form_dropdown('category',$category,set_value('category',$before->category),'class="chzn-select form-control" 	data-placeholder="Choose a category..."');
+					?>
+				  </div>
+				</div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="normal-field">City</label>
                 <div class="col-sm-4">

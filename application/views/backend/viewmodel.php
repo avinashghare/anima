@@ -16,6 +16,7 @@
                         <tr>
                             <th data-field="id">ID</th>
                             <th data-field="name">Name</th>
+                            <th data-field="category">Category</th>
 <!--                            <th data-field="json">Json</th>-->
                             <th data-field="image">Image</th>
                             <th data-field="action">Action</th>
@@ -30,7 +31,7 @@
         <script>
             function drawtable(resultrow) {
                 var logo="<img src='<?php echo base_url('/uploads/');?>/" + resultrow.image + "' width=100px;>";
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + logo + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editmodel?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletemodel?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.name + "</td><td>" + resultrow.category + "</td><td>" + logo + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editmodel?id=');?>" + resultrow.id + "'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletemodel?id='); ?>" + resultrow.id + "'><i class='icon-trash '></i></a></td></tr>";
             }
             generatejquery("<?php echo $base_url;?>");
         </script>

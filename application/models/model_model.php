@@ -3,9 +3,14 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class model_model extends CI_Model
 {
-    public function create($name,$json,$image)
+    public function create($name,$json,$image,$category)
     {
-        $data=array("name" => $name,"json" => $json,"image" => $image);
+        $data=array(
+            "name" => $name,
+            "json" => $json,
+            "category" => $category,
+            "image" => $image
+        );
         $query=$this->db->insert( "anima_model", $data );
         $id=$this->db->insert_id();
         if(!$query)
@@ -25,9 +30,14 @@ class model_model extends CI_Model
         $query=$this->db->get("anima_model")->row();
         return $query;
     }
-    public function edit($id,$name,$json,$image)
+    public function edit($id,$name,$json,$image,$category)
     {
-        $data=array("name" => $name,"json" => $json,"image" => $image);
+        $data=array(
+            "name" => $name,
+            "json" => $json,
+            "category" => $category,
+            "image" => $image
+        );
         $this->db->where( "id", $id );
         $query=$this->db->update( "anima_model", $data );
         return 1;

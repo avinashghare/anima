@@ -970,6 +970,12 @@ class Site extends CI_Controller
         $elements[3]->header="Image";
         $elements[3]->alias="image";
         
+        $elements[4]=new stdClass();
+        $elements[4]->field="`anima_category`.`name`";
+        $elements[4]->sort="1";
+        $elements[4]->header="category";
+        $elements[4]->alias="category";
+        
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -985,7 +991,7 @@ class Site extends CI_Controller
             $orderby="id";
             $orderorder="ASC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_model`");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_model` LEFT OUTER JOIN `anima_category` ON `anima_category`.`id`=`anima_model`.`category`");
         $this->load->view("json",$data);
     }
 
@@ -1056,6 +1062,7 @@ class Site extends CI_Controller
             $data["fieldjson"]=$json;
         
         $data["page"]="createmodel";
+        $data['category']=$this->category_model->getcategorydropdown();
         $data["title"]="Create model";
         $this->load->view("template",$data);
     }
@@ -1065,6 +1072,7 @@ class Site extends CI_Controller
         $this->checkaccess($access);
         $this->form_validation->set_rules("name","Name","trim");
         $this->form_validation->set_rules("json","Json","trim");
+        $this->form_validation->set_rules("category","category","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
@@ -1076,6 +1084,7 @@ class Site extends CI_Controller
         {
             $name=$this->input->get_post("name");
             $json=$this->input->get_post("json");
+            $category=$this->input->get_post("category");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1108,7 +1117,7 @@ class Site extends CI_Controller
                 
 			}
             
-            if($this->model_model->create($name,$json,$image)==0)
+            if($this->model_model->create($name,$json,$image,$category)==0)
                 $data["alerterror"]="New model could not be created.";
             else
                 $data["alertsuccess"]="model created Successfully.";
@@ -1123,6 +1132,7 @@ class Site extends CI_Controller
         $data["page"]="editmodel";
         $data["page2"]="block/modelblock";
         $data["title"]="Edit model";
+        $data['category']=$this->category_model->getcategorydropdown();
         $data["before"]=$this->model_model->beforeedit($this->input->get("id"));
         $this->load->view("templatewith2",$data);
     }
@@ -1133,6 +1143,7 @@ class Site extends CI_Controller
         $this->form_validation->set_rules("id","ID","trim");
         $this->form_validation->set_rules("name","Name","trim");
         $this->form_validation->set_rules("json","Json","trim");
+        $this->form_validation->set_rules("category","category","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
@@ -1146,6 +1157,7 @@ class Site extends CI_Controller
             $id=$this->input->get_post("id");
             $name=$this->input->get_post("name");
             $json=$this->input->get_post("json");
+            $category=$this->input->get_post("category");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1189,7 +1201,7 @@ class Site extends CI_Controller
                 $image=$image->image;
             }
             
-            if($this->model_model->edit($id,$name,$json,$image)==0)
+            if($this->model_model->edit($id,$name,$json,$image,$category)==0)
                 $data["alerterror"]="New model could not be Updated.";
             else
                 $data["alertsuccess"]="model Updated Successfully.";
@@ -1665,6 +1677,18 @@ class Site extends CI_Controller
         $elements[4]->header="Content";
         $elements[4]->alias="content";
         
+        $elements[5]=new stdClass();
+        $elements[5]->field="`anima_photographer`.`image`";
+        $elements[5]->sort="1";
+        $elements[5]->header="image";
+        $elements[5]->alias="image";
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`photographercategory`.`name`";
+        $elements[6]->sort="1";
+        $elements[6]->header="category";
+        $elements[6]->alias="category";
+        
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -1680,7 +1704,7 @@ class Site extends CI_Controller
             $orderby="id";
             $orderorder="ASC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_photographer`");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_photographer` LEFT OUTER JOIN `photographercategory` ON `photographercategory`.`id` = `anima_photographer`.`category`");
         $this->load->view("json",$data);
     }
 
@@ -1688,6 +1712,7 @@ class Site extends CI_Controller
     {
         $access=array("1");
         $this->checkaccess($access);
+        $data['category']=$this->photographercategory_model->getphotographercategorydropdown();
         $data["page"]="createphotographer";
         $data["title"]="Create photographer";
         $this->load->view("template",$data);
@@ -1700,9 +1725,11 @@ class Site extends CI_Controller
         $this->form_validation->set_rules("city","City","trim");
         $this->form_validation->set_rules("order","Order","trim");
         $this->form_validation->set_rules("content","Content","trim");
+        $this->form_validation->set_rules("category","category","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
+            $data['category']=$this->photographercategory_model->getphotographercategorydropdown();
             $data["page"]="createphotographer";
             $data["title"]="Create photographer";
             $this->load->view("template",$data);
@@ -1713,6 +1740,7 @@ class Site extends CI_Controller
             $city=$this->input->get_post("city");
             $order=$this->input->get_post("order");
             $content=$this->input->get_post("content");
+            $category=$this->input->get_post("category");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1746,7 +1774,7 @@ class Site extends CI_Controller
 			}
             
             
-            if($this->photographer_model->create($name,$city,$order,$content,$image)==0)
+            if($this->photographer_model->create($name,$city,$order,$content,$image,$category)==0)
                 $data["alerterror"]="New photographer could not be created.";
             else
                 $data["alertsuccess"]="photographer created Successfully.";
@@ -1760,6 +1788,7 @@ class Site extends CI_Controller
         $this->checkaccess($access);
         $data["page"]="editphotographer";
         $data["title"]="Edit photographer";
+        $data['category']=$this->photographercategory_model->getphotographercategorydropdown();
         $data["before"]=$this->photographer_model->beforeedit($this->input->get("id"));
         $this->load->view("template",$data);
     }
@@ -1772,11 +1801,13 @@ class Site extends CI_Controller
         $this->form_validation->set_rules("city","City","trim");
         $this->form_validation->set_rules("order","Order","trim");
         $this->form_validation->set_rules("content","Content","trim");
+        $this->form_validation->set_rules("category","category","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
             $data["page"]="editphotographer";
             $data["title"]="Edit photographer";
+            $data['category']=$this->photographercategory_model->getphotographercategorydropdown();
             $data["before"]=$this->photographer_model->beforeedit($this->input->get("id"));
             $this->load->view("template",$data);
         }
@@ -1787,6 +1818,7 @@ class Site extends CI_Controller
             $city=$this->input->get_post("city");
             $order=$this->input->get_post("order");
             $content=$this->input->get_post("content");
+            $category=$this->input->get_post("category");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1831,7 +1863,7 @@ class Site extends CI_Controller
             }
             
             
-            if($this->photographer_model->edit($id,$name,$city,$order,$content,$image)==0)
+            if($this->photographer_model->edit($id,$name,$city,$order,$content,$image,$category)==0)
                 $data["alerterror"]="New photographer could not be Updated.";
             else
                 $data["alertsuccess"]="photographer Updated Successfully.";
@@ -2664,6 +2696,152 @@ class Site extends CI_Controller
         $data["message"]=$data1;
         $this->load->view("json",$data);
    
+    }
+    
+    
+    
+    //photographercategory
+    
+    public function viewphotographercategory()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="viewphotographercategory";
+        $data["base_url"]=site_url("site/viewphotographercategoryjson");
+        $data["title"]="View photographercategory";
+        $this->load->view("template",$data);
+    }
+    function viewphotographercategoryjson()
+    {
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`photographercategory`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`photographercategory`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`photographercategory`.`status`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Status";
+        $elements[2]->alias="status";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`photographercategory`.`order`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Order";
+        $elements[3]->alias="order";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `photographercategory`");
+        $this->load->view("json",$data);
+    }
+
+    public function createphotographercategory()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="createphotographercategory";
+        $data["title"]="Create photographercategory";
+        $data['status']=$this->photographercategory_model->getstatusdropdown();
+        $this->load->view("template",$data);
+    }
+    public function createphotographercategorysubmit() 
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("name","Name","trim");
+        $this->form_validation->set_rules("status","Status","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data["page"]="createphotographercategory";
+            $data["title"]="Create photographercategory";
+            $data['status']=$this->photographercategory_model->getstatusdropdown();
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $name=$this->input->get_post("name");
+            $status=$this->input->get_post("status");
+            $order=$this->input->get_post("order");
+            if($this->photographercategory_model->create($name,$status,$order)==0)
+                $data["alerterror"]="New photographercategory could not be created.";
+            else
+                $data["alertsuccess"]="photographercategory created Successfully.";
+            $data["redirect"]="site/viewphotographercategory";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function editphotographercategory()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="editphotographercategory";
+        $data["title"]="Edit photographercategory";
+        $data['status']=$this->photographercategory_model->getstatusdropdown();
+        $data["before"]=$this->photographercategory_model->beforeedit($this->input->get("id"));
+        $this->load->view("template",$data);
+    }
+    public function editphotographercategorysubmit()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("name","Name","trim");
+        $this->form_validation->set_rules("status","Status","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data["page"]="editphotographercategory";
+            $data["title"]="Edit photographercategory";
+            $data["before"]=$this->photographercategory_model->beforeedit($this->input->get("id"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->get_post("id");
+            $name=$this->input->get_post("name");
+            $status=$this->input->get_post("status");
+            $order=$this->input->get_post("order");
+            if($this->photographercategory_model->edit($id,$name,$status,$order)==0)
+                $data["alerterror"]="New photographercategory could not be Updated.";
+            else
+                $data["alertsuccess"]="photographercategory Updated Successfully.";
+            $data["redirect"]="site/viewphotographercategory";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function deletephotographercategory()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->photographercategory_model->delete($this->input->get("id"));
+        $data["redirect"]="site/viewphotographercategory";
+        $this->load->view("redirect",$data);
     }
 }
 ?>

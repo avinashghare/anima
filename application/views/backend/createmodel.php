@@ -27,6 +27,16 @@
                             </div>
                         </div>
 -->
+                       
+				<div class=" form-group">
+				  <label class="col-sm-2 control-label">category</label>
+				  <div class="col-sm-4">
+					<?php
+						
+						echo form_dropdown('category',$category,set_value('category'),'class="chzn-select form-control" 	data-placeholder="Choose a category..."');
+					?>
+				  </div>
+				</div>
                         <div class=" form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Image</label>
                             <div class="col-sm-4">

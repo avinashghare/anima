@@ -47,5 +47,17 @@ class category_model extends CI_Model
 		return $status;
 	}
     
+    public function getcategorydropdown()
+	{
+		$query=$this->db->query("SELECT * FROM `anima_category`  ORDER BY `id` ASC")->result();
+		$return=array(
+		);
+		foreach($query as $row)
+		{
+			$return[$row->id]=$row->name;
+		}
+		
+		return $return;
+	}
 }
 ?>

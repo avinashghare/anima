@@ -3,13 +3,14 @@ if ( !defined( "BASEPATH" ) )
 exit( "No direct script access allowed" );
 class photographer_model extends CI_Model
 {
-    public function create($name,$city,$order,$content,$image)
+    public function create($name,$city,$order,$content,$image,$category)
     {
         $data=array(
             "name" => $name,
             "city" => $city,
             "order" => $order,
             "image" => $image,
+            "category" => $category,
             "content" => $content
         );
         $query=$this->db->insert( "anima_photographer", $data );
@@ -31,13 +32,14 @@ class photographer_model extends CI_Model
         $query=$this->db->get("anima_photographer")->row();
         return $query;
     }
-    public function edit($id,$name,$city,$order,$content,$image)
+    public function edit($id,$name,$city,$order,$content,$image,$category)
     {
         $data=array(
             "name" => $name,
             "city" => $city,
             "order" => $order,
             "image" => $image,
+            "category" => $category,
             "content" => $content
         );
         $this->db->where( "id", $id );
