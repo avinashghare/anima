@@ -11,12 +11,12 @@
                 modelimage Details
             </header>
             <div class="panel-body">
-                <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createmodelimagesubmit");?>' enctype='multipart/form-data'>
+                <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createmodelgalleryimagesubmit");?>' enctype='multipart/form-data'>
                     <div class="panel-body">
                         <div class="form-group" style="display:none;">
-                            <label class="col-sm-2 control-label" for="normal-field">Model</label>
+                            <label class="col-sm-2 control-label" for="normal-field">Modelgallery</label>
                             <div class="col-sm-4">
-                                <input type="text" id="normal-field" class="form-control" name="modelid" value='<?php echo $modelid;?>'>
+                                <input type="text" id="normal-field" class="form-control" name="modelgalleryid" value='<?php echo $modelgalleryid;?>'>
                             </div>
                         </div>
                         <div class="form-group">
@@ -53,17 +53,19 @@
                                 <input type="text" id="normal-field" class="form-control" name="order" value='<?php echo set_value(' order ');?>'>
                             </div>
                         </div>
+<!--
                         <div class=" form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Json</label>
                             <div class="col-sm-8">
                                 <textarea name="json" id="" cols="20" rows="10" class="form-control tinymce"><?php echo set_value( 'json');?></textarea>
                             </div>
                         </div>
+-->
                         <div class="form-group">
                             <label class="col-sm-2 control-label" for="normal-field">&nbsp;</label>
                             <div class="col-sm-4">
                                 <button type="submit" class="btn btn-primary">Save</button>
-                                <a href="<?php echo site_url(" site/viewpage "); ?>" class="btn btn-secondary">Cancel</a>
+<!--                                <a href="<?php echo site_url(" site/viewpage "); ?>" class="btn btn-secondary">Cancel</a>-->
                             </div>
                         </div>
                 </form>

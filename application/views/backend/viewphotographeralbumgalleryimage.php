@@ -3,7 +3,7 @@
 	<div class="col-lg-12">
 		<section class="panel">
 			<header class="panel-heading">
-                Model Image Details<a class="btn btn-primary pull-right" href="<?php echo site_url("site/createmodelimage?id=").$this->input->get('id'); ?>"><i class="icon-plus"></i>Create </a><a class="btn btn-primary pull-right savemodelorder">Save Order</a>
+                Gallery Image Details<a class="btn btn-primary pull-right" href="<?php echo site_url("site/createphotographeralbumgalleryimage?photographeralbumgalleryid=").$this->input->get('photographeralbumgalleryid'); ?>"><i class="icon-plus"></i>Create </a><a class="btn btn-primary pull-right savephotographerorder">Save Order</a>
      
             </header>
            
@@ -20,10 +20,10 @@ foreach($table as $row) {
                               <div><span class="badge"><?php if($row->type==1){ echo "Horizontal "; } else { echo "Verticle "; } ?></span></div>
                               </div>
                               
-                              <div class="col-md-2"><a href="<?php echo site_url('site/editmodelimage?id=').$row->model.'&modelimageid='.$row->id;?>" class="btn btn-primary btn-xs">
+                              <div class="col-md-2"><a href="<?php echo site_url('site/editphotographeralbumgalleryimage?photographeralbumgalleryid=').$row->photographeralbumgallery.'&photographeralbumgalleryimageid='.$row->id;?>" class="btn btn-primary btn-xs">
 								<i class="icon-pencil"></i>
 							</a>
-							<a href="<?php echo site_url('site/deletemodelimage?id=').$row->model.'&modelimageid='.$row->id; ?>" class="btn btn-danger btn-xs">
+							<a href="<?php echo site_url('site/deletephotographeralbumgalleryimage?photographeralbumgalleryid=').$row->photographeralbumgallery.'&photographeralbumgalleryimageid='.$row->id; ?>" class="btn btn-danger btn-xs">
 								<i class="icon-trash "></i>
 							</a></div>
                           </div>
@@ -56,11 +56,11 @@ foreach($table as $row) {
         
     }); 
     
-    $(".savemodelorder").click(function () {
+    $(".savephotographerorder").click(function () {
         $("#sortable>li").each(function( index ) {
             
         $.getJSON(
-            "<?php echo base_url(); ?>index.php/site/savemodelorder?order="+$(this).attr("data-order")+"&id="+$(this).attr("data-id")+"", {
+            "<?php echo base_url(); ?>index.php/site/savephotographerorder?order="+$(this).attr("data-order")+"&id="+$(this).attr("data-id")+"", {
                 
             },
             function (data) {

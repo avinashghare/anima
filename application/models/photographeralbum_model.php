@@ -61,5 +61,13 @@ class photographeralbum_model extends CI_Model
 		
 		return $return;
 	}
+    
+    public function savephotographerorder($id,$order)
+    {
+        $data=array("order" => $order);
+        $this->db->where( "id", $id );
+        $query=$this->db->update( "photographeralbumgalleryimage", $data );
+        return 1;
+    }
 }
 ?>

@@ -707,9 +707,10 @@ class Site extends CI_Controller
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="editnews";
+        $data["page2"]="block/newsblock";
         $data["title"]="Edit news";
         $data["before"]=$this->news_model->beforeedit($this->input->get("id"));
-        $this->load->view("template",$data);
+        $this->load->view("templatewith2",$data);
     }
     public function editnewssubmit()
     {
@@ -1217,15 +1218,17 @@ class Site extends CI_Controller
         $data["redirect"]="site/viewmodel";
         $this->load->view("redirect",$data);
     }
-    public function viewmodelimage()
+    public function viewmodelgalleryimage()
     {
         $access=array("1");
         $this->checkaccess($access);
         $modelid=$this->input->get('id');
-        $data["page"]="viewmodelimage";
-        $data["page2"]="block/modelblock";
-        $data["before"]=$this->model_model->beforeedit($this->input->get("id"));
-        $data["table"]=$this->model_model->viewmodelimage($this->input->get("id"));
+        $modelgalleryid=$this->input->get('modelgalleryid');
+        $data["page"]="viewmodelgalleryimage";
+        $data["page2"]="block/modelgalleryblock";
+        $data["before"]=$this->modelgallery_model->beforeedit($this->input->get("modelgalleryid"));
+        $data["table"]=$this->modelimage_model->viewmodelgalleryimage($this->input->get("modelgalleryid"));
+//        print_r($data["table"]);
 //        $data["base_url"]=site_url("site/viewmodelimagejson?id=$modelid");
         $data["title"]="View Model Image";
         $this->load->view("templatewith2",$data);
@@ -1308,18 +1311,18 @@ class Site extends CI_Controller
         $this->load->view("json",$data);
     }
 
-    public function createmodelimage()
+    public function createmodelgalleryimage()
     {
         $access=array("1");
         $this->checkaccess($access);
-        $modelid=$this->input->get('id');
+        $modelgalleryid=$this->input->get('modelgalleryid');
         $data['type']=$this->model_model->gettypedropdown();
-        $data['modelid']=$modelid;
-        $data["page"]="createmodelimage";
+        $data['modelgalleryid']=$modelgalleryid;
+        $data["page"]="createmodelgalleryimage";
         $data["title"]="Create modelimage";
         $this->load->view("template",$data);
     }
-    public function createmodelimagesubmit() 
+    public function createmodelgalleryimagesubmit() 
     {
         $access=array("1");
         $this->checkaccess($access);
@@ -1343,7 +1346,7 @@ class Site extends CI_Controller
             $type=$this->input->get_post("type");
             $order=$this->input->get_post("order");
             $json=$this->input->get_post("json");
-            $modelid=$this->input->get_post("modelid");
+            $modelgalleryid=$this->input->get_post("modelgalleryid");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1376,27 +1379,29 @@ class Site extends CI_Controller
                 
 			}
             
-            if($this->modelimage_model->create($name,$image,$type,$order,$json,$modelid)==0)
+            if($this->modelimage_model->create($name,$image,$type,$order,$json,$modelgalleryid)==0)
                 $data["alerterror"]="New modelimage could not be created.";
             else
                 $data["alertsuccess"]="modelimage created Successfully.";
-            $data["redirect"]="site/viewmodelimage?id=".$modelid;
+            $data["redirect"]="site/viewmodelgalleryimage?modelgalleryid=".$modelgalleryid;
             $this->load->view("redirect2",$data);
         }
     }
-    public function editmodelimage()
+    public function editmodelgalleryimage()
     {
         $access=array("1");
         $this->checkaccess($access);
-        $data['modelid']=$this->input->get('id');
-        $data['modelimageid']=$this->input->get('modelimageid');
+        $data['modelgalleryid']=$this->input->get('modelgalleryid');
+        $data['modelgalleryimageid']=$this->input->get('modelgalleryimageid');
         $data['type']=$this->model_model->gettypedropdown();
-        $data["page"]="editmodelimage";
+        $data["page"]="editmodelgalleryimage";
         $data["title"]="Edit modelimage";
-        $data["before"]=$this->modelimage_model->beforeedit($this->input->get("modelimageid"));
+        
+        $data["before"]=$this->modelimage_model->beforeedit($this->input->get("modelgalleryimageid"));
+//        print_r($data);
         $this->load->view("template",$data);
     }
-    public function editmodelimagesubmit()
+    public function editmodelgalleryimagesubmit()
     {
         $access=array("1");
         $this->checkaccess($access);
@@ -1408,12 +1413,14 @@ class Site extends CI_Controller
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
-            $data['modelid']=$this->input->get_post('id');
-            $data['modelimageid']=$this->input->get_post('modelimageid');
-            $data["page"]="editmodelimage";
-            $data["title"]="Edit modelimage";
+            $data['modelgalleryid']=$this->input->get('modelgalleryid');
+            $data['modelgalleryimageid']=$this->input->get('modelgalleryimageid');
             $data['type']=$this->model_model->gettypedropdown();
-            $data["before"]=$this->modelimage_model->beforeedit($this->input->get("modelimageid"));
+            $data["page"]="editmodelgalleryimage";
+            $data["title"]="Edit modelimage";
+
+            $data["before"]=$this->modelimage_model->beforeedit($this->input->get("modelgalleryimageid"));
+    //        print_r($data);
             $this->load->view("template",$data);
         }
         else
@@ -1423,8 +1430,8 @@ class Site extends CI_Controller
             $type=$this->input->get_post("type");
             $order=$this->input->get_post("order");
             $json=$this->input->get_post("json");
-            $modelid=$this->input->get_post("modelid");
-            
+            $modelgalleryid=$this->input->get_post("modelgalleryid");
+            echo $modelgalleryid;
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
 			$this->load->library('upload', $config);
@@ -1462,7 +1469,7 @@ class Site extends CI_Controller
             
             if($image=="")
             {
-            $image=$this->modelimage_model->getmodelimageimagebyid($id);
+            $image=$this->modelimage_model->getmodelgalleryimagebyid($id);
                // print_r($image);
                 $image=$image->image;
             }
@@ -1471,17 +1478,17 @@ class Site extends CI_Controller
                 $data["alerterror"]="New modelimage could not be Updated.";
             else
                 $data["alertsuccess"]="modelimage Updated Successfully.";
-            $data["redirect"]="site/viewmodelimage?id=".$modelid;
+            $data["redirect"]="site/viewmodelgalleryimage?modelgalleryid=".$modelgalleryid;
             $this->load->view("redirect2",$data);
         }
     }
-    public function deletemodelimage()
+    public function deletemodelgalleryimage()
     {
         $access=array("1");
         $this->checkaccess($access);
-        $modelid=$this->input->get('id');
-        $this->modelimage_model->delete($this->input->get("modelimageid"));
-        $data["redirect"]="site/viewmodelimage?id=".$modelid;
+        $modelgalleryid=$this->input->get('modelgalleryid');
+        $this->modelimage_model->delete($this->input->get("modelgalleryimageid"));
+        $data["redirect"]="site/viewmodelgalleryimage?modelgalleryid=".$modelgalleryid;
         $this->load->view("redirect2",$data);
     }
     public function viewmodelvideo()
@@ -2135,16 +2142,36 @@ class Site extends CI_Controller
         $data["title"]="View albumimage";
         $this->load->view("templatewith2",$data);
     }
-//    public function viewalbumimage()
+    
+    public function viewphotographeralbumgalleryimage()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $photographeralbumgalleryid=$this->input->get('photographeralbumgalleryid');
+        $photographeralbumid=$this->input->get('id');
+        $data["page"]="viewphotographeralbumgalleryimage";
+        $data["page2"]="block/photographeralbumgalleryblock";
+        $data["before"]=$this->photographeralbumgallery_model->beforeedit($this->input->get("photographeralbumgalleryid"));
+        $data["table"]=$this->albumimage_model->viewphotographeralbumgalleryimage($this->input->get("photographeralbumgalleryid"));
+//        print_r($data["table"]);
+//        $data["base_url"]=site_url("site/viewmodelimagejson?id=$modelid");
+        $data["title"]="View Model Image";
+        $this->load->view("templatewith2",$data);
+    }
+    
+//    public function viewmodelgalleryimage()
 //    {
 //        $access=array("1");
 //        $this->checkaccess($access);
-//        $photographeralbumid=$this->input->get('id');
-//        $data["page"]="viewalbumimage";
-//        $data["page2"]="block/photographeralbumblock";
-//        $data["before"]=$this->photographeralbum_model->beforeedit($this->input->get("id"));
-//        $data["base_url"]=site_url("site/viewalbumimagejson?id=$photographeralbumid");
-//        $data["title"]="View albumimage";
+//        $modelid=$this->input->get('id');
+//        $modelgalleryid=$this->input->get('modelgalleryid');
+//        $data["page"]="viewmodelgalleryimage";
+//        $data["page2"]="block/modelgalleryblock";
+//        $data["before"]=$this->photographeralbumgallery_model->beforeedit($this->input->get("modelgalleryid"));
+//        $data["table"]=$this->photographeralbumgallery_model->viewmodelgalleryimage($this->input->get("modelgalleryid"));
+////        print_r($data["table"]);
+////        $data["base_url"]=site_url("site/viewmodelimagejson?id=$modelid");
+//        $data["title"]="View Model Image";
 //        $this->load->view("templatewith2",$data);
 //    }
     function viewalbumimagejson()
@@ -2213,32 +2240,36 @@ class Site extends CI_Controller
         $this->load->view("json",$data);
     }
 
-    public function createalbumimage()
+    public function createphotographeralbumgalleryimage()
     {
         $access=array("1");
         $this->checkaccess($access);
-        $data['photographeralbum']=$this->input->get('id');
+        $photographeralbumgalleryid=$this->input->get('photographeralbumgalleryid');
+//        $data['photographeralbum']=$this->input->get('id');
         $data['type']=$this->model_model->gettypedropdown();
-        $data["page"]="createalbumimage";
-        $data["title"]="Create albumimage";
+        $data['photographeralbumgalleryid']=$photographeralbumgalleryid;
+        $data["page"]="createphotographeralbumgalleryimage";
+        $data["title"]="Create Photographer Album image";
         $this->load->view("template",$data);
     }
-    public function createalbumimagesubmit() 
+    
+    public function createphotographeralbumgalleryimagesubmit() 
     {
         $access=array("1");
         $this->checkaccess($access);
         $this->form_validation->set_rules("name","Name","trim");
         $this->form_validation->set_rules("type","Type","trim");
         $this->form_validation->set_rules("order","Order","trim");
-        $this->form_validation->set_rules("json","Json","trim");
-        $this->form_validation->set_rules("photographeralbum","Photographer Album","trim");
+//        $this->form_validation->set_rules("json","Json","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
-            $data['photographeralbum']=$this->input->get_post('photographeralbum');
+            $photographeralbumgalleryid=$this->input->get_post('photographeralbumgalleryid');
+//        $data['photographeralbum']=$this->input->get('id');
             $data['type']=$this->model_model->gettypedropdown();
-            $data["page"]="createalbumimage";
-            $data["title"]="Create albumimage";
+            $data['photographeralbumgalleryid']=$photographeralbumgalleryid;
+            $data["page"]="createphotographeralbumgalleryimage";
+            $data["title"]="Create Photographer Album image";
             $this->load->view("template",$data);
         }
         else
@@ -2246,8 +2277,8 @@ class Site extends CI_Controller
             $name=$this->input->get_post("name");
             $type=$this->input->get_post("type");
             $order=$this->input->get_post("order");
-            $json=$this->input->get_post("json");
-            $photographeralbum=$this->input->get_post("photographeralbum");
+//            $json=$this->input->get_post("json");
+            $photographeralbumgalleryid=$this->input->get_post("photographeralbumgalleryid");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -2280,25 +2311,104 @@ class Site extends CI_Controller
                 
 			}
             
-            if($this->albumimage_model->create($name,$image,$type,$order,$json,$photographeralbum)==0)
-                $data["alerterror"]="New albumimage could not be created.";
+            if($this->albumimage_model->create($name,$image,$type,$order,$photographeralbumgalleryid)==0)
+                $data["alerterror"]="New photographeralbumgalleryimage could not be created.";
             else
-                $data["alertsuccess"]="albumimage created Successfully.";
-            $data["redirect"]="site/viewalbumimage?id=".$photographeralbum;
+                $data["alertsuccess"]="photographeralbumgalleryimage created Successfully.";
+            $data["redirect"]="site/viewphotographeralbumgalleryimage?photographeralbumgalleryid=".$photographeralbumgalleryid;
             $this->load->view("redirect2",$data);
         }
     }
-    public function editalbumimage()
+    public function editphotographeralbumgalleryimage()
     {
         $access=array("1");
         $this->checkaccess($access);
-        $data['photographeralbumid']=$this->input->get('id');
-        $data['photographeralbumimage']=$this->input->get('photographeralbumimage');
-        $data["page"]="editalbumimage";
-        $data["title"]="Edit albumimage";
+        $data['photographeralbumgalleryid']=$this->input->get('id');
+        $data['photographeralbumgalleryimageid']=$this->input->get('photographeralbumgalleryimageid');
+        $data["page"]="editphotographeralbumgalleryimage";
+        $data["title"]="Edit Photographer Album Gallery image";
         $data['type']=$this->model_model->gettypedropdown();
-        $data["before"]=$this->albumimage_model->beforeedit($this->input->get("photographeralbumimage"));
+        $data["before"]=$this->albumimage_model->beforeedit($this->input->get("photographeralbumgalleryimageid"));
         $this->load->view("template",$data);
+    }
+    public function editphotographeralbumgalleryimagesubmit()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("name","Name","trim");
+        $this->form_validation->set_rules("type","Type","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        $this->form_validation->set_rules("json","Json","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data['photographeralbumgalleryid']=$this->input->get_post('id');
+            $data['photographeralbumgalleryimageid']=$this->input->get_post('photographeralbumgalleryimageid');
+            $data["page"]="editphotographeralbumgalleryimage";
+            $data["title"]="Edit Photographer Album Gallery image";
+            $data['type']=$this->model_model->gettypedropdown();
+            $data["before"]=$this->albumimage_model->beforeedit($this->input->get_post("photographeralbumgalleryimageid"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->post("id");
+            $name=$this->input->get_post("name");
+            $type=$this->input->get_post("type");
+            $order=$this->input->get_post("order");
+            $json=$this->input->get_post("json");
+            $photographeralbumgalleryid=$this->input->get_post("photographeralbumgalleryid");
+//            echo $modelgalleryid;
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
+            
+            if($image=="")
+            {
+            $image=$this->albumimage_model->getalbumimagebyid($id);
+               // print_r($image);
+                $image=$image->image;
+            }
+            
+            if($this->albumimage_model->edit($id,$name,$image,$type,$order)==0)
+                $data["alerterror"]="New modelimage could not be Updated.";
+            else
+                $data["alertsuccess"]="modelimage Updated Successfully.";
+            $data["redirect"]="site/viewphotographeralbumgalleryimage?photographeralbumgalleryid=".$photographeralbumgalleryid;
+            $this->load->view("redirect2",$data);
+        }
     }
     public function editalbumimagesubmit()
     {
@@ -2386,6 +2496,16 @@ class Site extends CI_Controller
         $photographeralbumimage=$this->input->get('photographeralbumimage');
         $this->albumimage_model->delete($this->input->get("photographeralbumimage"));
         $data["redirect"]="site/viewalbumimage?id=".$photographeralbumid;
+        $this->load->view("redirect2",$data);
+    }
+    
+    public function deletephotographeralbumgalleryimage()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $photographeralbumgalleryid=$this->input->get('photographeralbumgalleryid');
+        $this->albumimage_model->delete($this->input->get("photographeralbumgalleryimageid"));
+        $data["redirect"]="site/viewphotographeralbumgalleryimage?photographeralbumgalleryid=".$photographeralbumgalleryid;
         $this->load->view("redirect2",$data);
     }
     public function viewphotographervideo()
@@ -2697,6 +2817,15 @@ class Site extends CI_Controller
         $this->load->view("json",$data);
    
     }
+    public function savephotographerorder()
+    {
+        $order=$this->input->get('order');
+        $id=$this->input->get('id');
+        $data1=$this->photographeralbum_model->savephotographerorder($id,$order);
+        $data["message"]=$data1;
+        $this->load->view("json",$data);
+   
+    }
     
     
     
@@ -2843,5 +2972,583 @@ class Site extends CI_Controller
         $data["redirect"]="site/viewphotographercategory";
         $this->load->view("redirect",$data);
     }
+    
+    //modelgallery
+    
+    function viewmodelgallery()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $modelid=$this->input->get('id');
+		$data['before']=$this->model_model->beforeedit($modelid);
+		$data['table']=$this->modelgallery_model->viewmodelgallerybymodel($modelid);
+		$data['page']='viewmodelgallery';
+		$data['page2']='block/modelblock';
+        $data['title']='View model Image';
+		$this->load->view('templatewith2',$data);
+	}
+    
+    
+    
+    public function createmodelgallery()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data[ 'page' ] = 'createmodelgallery';
+		$data[ 'title' ] = 'Create modelgallery';
+		$data[ 'modelid' ] = $this->input->get('id');
+//        $data['model']=$this->modelgallery_model->getmodeldropdown();
+		$this->load->view( 'template', $data );	
+	}
+    function createmodelgallerysubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('modelid','modelid','trim|required');
+
+		if($this->form_validation->run() == FALSE)	
+		{
+            
+			$data['alerterror'] = validation_errors();
+			$data[ 'page' ] = 'createmodelgallery';
+            $data[ 'title' ] = 'Create modelgallery';
+            $data[ 'modelid' ] = $this->input->get_post('id');
+            $this->load->view( 'template', $data );	
+		}
+		else
+		{
+			$model=$this->input->post('modelid');
+			$title=$this->input->post('title');
+			$order=$this->input->post('order');
+           
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            
+            
+            if($this->modelgallery_model->create($model,$image,$title,$order)==0)
+               $data['alerterror']="New modelgallery could not be created.";
+            else
+               $data['alertsuccess']="modelgallery created Successfully.";
+			
+			$data['redirect']="site/viewmodelgallery?id=".$model;
+			$this->load->view("redirect2",$data);
+		}
+	}
+    
+    function editmodelgallery()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $modelid=$this->input->get('id');
+        $data['modelid']=$modelid;
+        $modelgalleryid=$this->input->get('modelgalleryid');
+        $data['modelgalleryid']=$modelgalleryid;
+		$data['before']=$this->modelgallery_model->beforeedit($this->input->get('modelgalleryid'));
+//		$data['beforemodelgallery']=$this->modelgallery_model->beforeedit($this->input->get('modelgalleryid'));
+//        $data['model']=$this->modelgallery_model->getmodeldropdown();
+		$data['page']='editmodelgallery';
+		$data['page2']='block/modelgalleryblock';
+		$data['title']='Edit modelgallery';
+		$this->load->view('templatewith2',$data);
+	}
+	function editmodelgallerysubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        
+		$this->form_validation->set_rules('modelid','model','trim|required');
+        
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+            $modelid=$this->input->post('model');
+            $modelgalleryid=$this->input->post('modelgalleryid');
+            $data['modelid']=$modelid;
+			$data['before']=$this->modelgallery_model->beforeedit($this->input->post('modelgalleryid'));
+            $data['model']=$this->modelgallery_model->getmodeldropdown();
+//			$data['page2']='block/eventblock';
+			$data['page']='editmodelgallery';
+			$data['title']='Edit modelgallery';
+			$this->load->view('template',$data);
+		}
+		else
+		{
+            
+			$id=$this->input->post('id');
+//			$id=$this->input->post('modelgalleryid');
+            $model=$this->input->post('modelid');
+            $title=$this->input->post('title');
+            $order=$this->input->post('order');
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            if($image=="")
+            {
+                $image=$this->modelgallery_model->getmodelgalleryimagebyid($id);
+                $image=$image->image;
+            }
+            
+			if($this->modelgallery_model->edit($id,$model,$image,$title,$order)==0)
+			$data['alerterror']="modelgallery Editing was unsuccesful";
+			else
+			$data['alertsuccess']="modelgallery edited Successfully.";
+			
+			$data['redirect']="site/viewmodelgallery?id=".$model;
+			$this->load->view("redirect2",$data);
+			
+		}
+	}
+    
+	function deletemodelgallery()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $modelid=$this->input->get('id');
+        $modelgalleryid=$this->input->get('modelgalleryid');
+		$this->modelgallery_model->deletemodelgallery($this->input->get('modelgalleryid'));
+		$data['alertsuccess']="modelgallery Deleted Successfully";
+		$data['redirect']="site/viewmodelgallery?id=".$modelid;
+		$this->load->view("redirect2",$data);
+	}
+    //photographeralbumgallery
+    
+    function viewphotographeralbumgallery()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $photographeralbumid=$this->input->get('id');
+		$data['before']=$this->photographeralbum_model->beforeedit($photographeralbumid);
+		$data['table']=$this->photographeralbumgallery_model->viewphotographeralbumgallerybyphotographeralbum($photographeralbumid);
+		$data['page']='viewphotographeralbumgallery';
+		$data['page2']='block/photographeralbumblock';
+        $data['title']='View Gallery';
+		$this->load->view('templatewith2',$data);
+	}
+    
+    
+    
+    public function createphotographeralbumgallery()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data[ 'page' ] = 'createphotographeralbumgallery';
+		$data[ 'title' ] = 'Create photographeralbumgallery';
+		$data[ 'photographeralbumid' ] = $this->input->get('id');
+//        $data['model']=$this->photographeralbumgallery_model->getmodeldropdown();
+		$this->load->view( 'template', $data );	
+	}
+    function createphotographeralbumgallerysubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('photographeralbumid','photographeralbumid','trim|required');
+
+		if($this->form_validation->run() == FALSE)	
+		{
+            
+			$data['alerterror'] = validation_errors();
+			$data[ 'page' ] = 'createphotographeralbumgallery';
+            $data[ 'title' ] = 'Create photographeralbumgallery';
+            $data[ 'modelid' ] = $this->input->get_post('id');
+            $this->load->view( 'template', $data );	
+		}
+		else
+		{
+			$photographeralbum=$this->input->post('photographeralbumid');
+			$title=$this->input->post('title');
+			$order=$this->input->post('order');
+           
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            
+            
+            if($this->photographeralbumgallery_model->create($photographeralbum,$image,$title,$order)==0)
+               $data['alerterror']="New photographeralbumgallery could not be created.";
+            else
+               $data['alertsuccess']="photographeralbumgallery created Successfully.";
+			
+			$data['redirect']="site/viewphotographeralbumgallery?id=".$photographeralbum;
+			$this->load->view("redirect2",$data);
+		}
+	}
+    
+    function editphotographeralbumgallery()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $photographeralbumid=$this->input->get('id');
+        $data['photographeralbumid']=$photographeralbumid;
+        $photographeralbumgalleryid=$this->input->get('photographeralbumgalleryid');
+        $data['photographeralbumgalleryid']=$photographeralbumgalleryid;
+		$data['before']=$this->photographeralbumgallery_model->beforeedit($this->input->get('photographeralbumgalleryid'));
+		$data['page']='editphotographeralbumgallery';
+		$data['page2']='block/photographeralbumgalleryblock';
+		$data['title']='Edit photographeralbumgallery';
+		$this->load->view('templatewith2',$data);
+	}
+	function editphotographeralbumgallerysubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        
+		$this->form_validation->set_rules('photographeralbumid','photographeralbum','trim|required');
+        
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+            $modelid=$this->input->post('model');
+            $photographeralbumgalleryid=$this->input->post('photographeralbumgalleryid');
+            $data['modelid']=$modelid;
+			$data['before']=$this->photographeralbumgallery_model->beforeedit($this->input->post('photographeralbumgalleryid'));
+            $data['model']=$this->photographeralbumgallery_model->getmodeldropdown();
+//			$data['page2']='block/eventblock';
+			$data['page']='editphotographeralbumgallery';
+			$data['title']='Edit photographeralbumgallery';
+			$this->load->view('template',$data);
+		}
+		else
+		{
+            
+			$id=$this->input->post('id');
+//			$id=$this->input->post('photographeralbumgalleryid');
+            $photographeralbum=$this->input->post('photographeralbumid');
+            $title=$this->input->post('title');
+            $order=$this->input->post('order');
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            if($image=="")
+            {
+                $image=$this->photographeralbumgallery_model->getphotographeralbumgalleryimagebyid($id);
+                $image=$image->image;
+            }
+            
+			if($this->photographeralbumgallery_model->edit($id,$photographeralbum,$image,$title,$order)==0)
+			$data['alerterror']="photographeralbumgallery Editing was unsuccesful";
+			else
+			$data['alertsuccess']="photographeralbumgallery edited Successfully.";
+			
+			$data['redirect']="site/viewphotographeralbumgallery?id=".$photographeralbum;
+			$this->load->view("redirect2",$data);
+			
+		}
+	}
+    
+	function deletephotographeralbumgallery()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $photographeralbumid=$this->input->get('id');
+        $photographeralbumgalleryid=$this->input->get('photographeralbumgalleryid');
+		$this->photographeralbumgallery_model->deletephotographeralbumgallery($this->input->get('photographeralbumgalleryid'));
+		$data['alertsuccess']="photographeralbumgallery Deleted Successfully";
+		$data['redirect']="site/viewphotographeralbumgallery?id=".$photographeralbumid;
+		$this->load->view("redirect2",$data);
+	}
+    
+    //newsimage
+    
+    function viewnewsimage()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $newsid=$this->input->get('id');
+		$data['before']=$this->news_model->beforeedit($newsid);
+		$data['table']=$this->newsimage_model->viewnewsimagebynews($newsid);
+		$data['page']='viewnewsimage';
+		$data['page2']='block/newsblock';
+        $data['title']='View news Image';
+		$this->load->view('templatewith2',$data);
+	}
+    
+    
+    
+    public function createnewsimage()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data[ 'page' ] = 'createnewsimage';
+		$data[ 'title' ] = 'Create newsimage';
+		$data[ 'newsid' ] = $this->input->get('id');
+//        $data['news']=$this->newsimage_model->getnewsdropdown();
+		$this->load->view( 'template', $data );	
+	}
+    function createnewsimagesubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('news','news','trim|required');
+		$this->form_validation->set_rules('title','title','trim');
+		$this->form_validation->set_rules('order','order','trim');
+
+		if($this->form_validation->run() == FALSE)	
+		{
+            
+			$data['alerterror'] = validation_errors();
+			$data[ 'page' ] = 'createnewsimage';
+            $data[ 'title' ] = 'Create newsimage';
+            $data[ 'newsid' ] = $this->input->get_post('id');
+//            $data['news']=$this->newsimage_model->getnewsdropdown();
+            $this->load->view( 'template', $data );	
+		}
+		else
+		{
+			$news=$this->input->post('news');
+			$title=$this->input->post('title');
+			$order=$this->input->post('order');
+           
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            
+            
+            if($this->newsimage_model->create($news,$image,$title,$order)==0)
+               $data['alerterror']="New newsimage could not be created.";
+            else
+               $data['alertsuccess']="newsimage created Successfully.";
+			
+			$data['redirect']="site/viewnewsimage?id=".$news;
+			$this->load->view("redirect",$data);
+		}
+	}
+    
+    function editnewsimage()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $newsid=$this->input->get('id');
+        $data['newsid']=$newsid;
+        $newsimageid=$this->input->get('newsimageid');
+		$data['before']=$this->newsimage_model->beforeedit($this->input->get('newsimageid'));
+//        $data['news']=$this->newsimage_model->getnewsdropdown();
+		$data['page']='editnewsimage';
+		$data['title']='Edit newsimage';
+		$this->load->view('template',$data);
+	}
+	function editnewsimagesubmit()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        
+		$this->form_validation->set_rules('news','news','trim|required');
+        
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+            $newsid=$this->input->post('news');
+            $newsimageid=$this->input->post('newsimageid');
+            $data['newsid']=$newsid;
+			$data['before']=$this->newsimage_model->beforeedit($this->input->post('newsimageid'));
+            $data['news']=$this->newsimage_model->getnewsdropdown();
+//			$data['page2']='block/eventblock';
+			$data['page']='editnewsimage';
+			$data['title']='Edit newsimage';
+			$this->load->view('template',$data);
+		}
+		else
+		{
+            
+			$id=$this->input->post('newsimageid');
+            $news=$this->input->post('news');
+            $title=$this->input->post('title');
+            $order=$this->input->post('order');
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            if($image=="")
+            {
+                $image=$this->newsimage_model->getnewsimagebyid($id);
+                $image=$image->image;
+            }
+            
+			if($this->newsimage_model->edit($id,$news,$image,$title,$order)==0)
+			$data['alerterror']="newsimage Editing was unsuccesful";
+			else
+			$data['alertsuccess']="newsimage edited Successfully.";
+			
+			$data['redirect']="site/viewnewsimage?id=".$news;
+			$this->load->view("redirect",$data);
+			
+		}
+	}
+    
+	function deletenewsimage()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        $newsid=$this->input->get('id');
+        $newsimageid=$this->input->get('newsimageid');
+		$this->newsimage_model->deletenewsimage($this->input->get('newsimageid'));
+		$data['alertsuccess']="newsimage Deleted Successfully";
+		$data['redirect']="site/viewnewsimage?id=".$newsid;
+		$this->load->view("redirect",$data);
+	}
 }
 ?>

@@ -86,12 +86,17 @@ class model_model extends CI_Model
     {
         $data=array("order" => $order);
         $this->db->where( "id", $id );
-        $query=$this->db->update( "anima_modelimage", $data );
+        $query=$this->db->update( "modelgalleryimage", $data );
         return 1;
     }
     public function viewmodelimage($id)
     {
         $query=$this->db->query("SELECT * FROM `anima_modelimage` WHERE `model`='$id' ORDER BY `order`")->result();
+        return $query;
+    }
+    public function viewmodelgallery($id)
+    {
+        $query=$this->db->query("SELECT * FROM `modelgallery` WHERE `model`='$id' ORDER BY `order`")->result();
         return $query;
     }
     public function getmodel1()

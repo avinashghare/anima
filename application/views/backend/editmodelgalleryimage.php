@@ -3,13 +3,14 @@
         modelimage Details
     </header>
     <div class="panel-body">
-        <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/editmodelimagesubmit");?>' enctype='multipart/form-data'>
-            <input type="text" id="normal-field" class="form-control" name="id" value="<?php echo set_value('id',$before->id);?>" style="display:none;">
+        <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/editmodelgalleryimagesubmit");?>' enctype='multipart/form-data'>
+            <input type="text" id="normal-field" class="form-control" name="id" value="<?php echo set_value('id',$before->id);?>">
             
-            <div class="form-group" style="display:none;">
-                <label class="col-sm-2 control-label" for="normal-field">Model</label>
+<!--           style="display:none;"  -->
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="normal-field">Modelgallery</label>
                 <div class="col-sm-4">
-                    <input type="text" id="normal-field" class="form-control" name="modelid" value='<?php echo set_value(' modelid ',$before->model);?>'>
+                    <input type="text" id="normal-field" class="form-control" name="modelgalleryid" value='<?php echo set_value(' modelgalleryid ',$before->modelgallery);?>'>
                 </div>
             </div>
             
@@ -57,12 +58,14 @@
                     <input type="text" id="normal-field" class="form-control" name="order" value='<?php echo set_value(' order ',$before->order);?>'>
                 </div>
             </div>
+<!--
             <div class=" form-group">
                 <label class="col-sm-2 control-label" for="normal-field">Json</label>
                 <div class="col-sm-8">
                     <textarea name="json" id="" cols="20" rows="10" class="form-control tinymce"><?php echo set_value( 'json',$before->json);?></textarea>
                 </div>
             </div>
+-->
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="normal-field">&nbsp;</label>
                 <div class="col-sm-4">

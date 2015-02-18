@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('user_model','menu_model','albumimage_model','article_model','category_model','instagram_model','model_model','modelimage_model','modelimage_model','modelvideo_model','news_model','photographer_model','photographeralbum_model','photographervideo_model','photographercategory_model');
+$autoload['model'] = array('user_model','menu_model','albumimage_model','article_model','category_model','instagram_model','model_model','modelimage_model','modelimage_model','modelvideo_model','news_model','photographer_model','photographeralbum_model','photographervideo_model','photographercategory_model','modelgallery_model','photographeralbumgallery_model','newsimage_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */
