@@ -1,6 +1,6 @@
 <section class="panel">
     <header class="panel-heading">
-        photographervideo Details
+        Creative Artist Details
     </header>
     <div class="panel-body">
         <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/editphotographervideosubmit");?>' enctype='multipart/form-data'>
@@ -14,9 +14,9 @@
             </div>
 -->
            <div class=" form-group" style="display:none;">
-                            <label class="col-sm-2 control-label" for="normal-field">Photographer Album</label>
+                            <label class="col-sm-2 control-label" for="normal-field">Photographer </label>
                             <div class="col-sm-4">
-                                <input type="text" id="normal-field" class="form-control" name="photographeralbum" value='<?php echo set_value(' photographeralbum ',$photographeralbum);?>'>
+                                <input type="text" id="normal-field" class="form-control" name="photographer" value='<?php echo set_value(' photographer ',$photographer);?>'>
                             </div>
                         </div>
             <div class="form-group">

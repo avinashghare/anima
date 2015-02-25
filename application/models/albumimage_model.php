@@ -66,7 +66,7 @@ class albumimage_model extends CI_Model
     
     public function viewphotographeralbumgalleryimage($id)
 	{
-		$query=$this->db->query("SELECT * FROM `photographeralbumgalleryimage` WHERE `photographeralbumgallery`='$id'")->result();
+		$query=$this->db->query("SELECT * FROM `photographeralbumgalleryimage` WHERE `photographeralbumgallery`='$id' ORDER BY `order` ASC")->result();
 		return $query;
 	}
 }

@@ -30,6 +30,7 @@
     <script src="<?php echo base_url('assets/js/chintantable.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/select2.js'); ?>"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+   <script src="http://tinymce.cachefly.net/4.1/tinymce.min.js"></script>
 <script>
 $(document).ready(function(){
 		$('.datetime').datepicker({

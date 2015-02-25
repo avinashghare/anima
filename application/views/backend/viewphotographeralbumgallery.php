@@ -9,7 +9,7 @@
 	<div class="col-lg-12">
 		<section class="panel">
 			<header class="panel-heading">
-                Photographer Album Gallery Details 
+                Creative Artist Sub-Category Album Details 
             </header>
 			<table class="table table-striped table-hover  fpTable lcnp" cellpadding="0" cellspacing="0" width="100%">
 			<thead>

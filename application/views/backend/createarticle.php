@@ -22,7 +22,7 @@
                         <div class=" form-group">
                             <label class="col-sm-2 control-label" for="normal-field">Json</label>
                             <div class="col-sm-8">
-                                <textarea name="json" id="" cols="20" rows="10" class="form-control tinymce"><?php echo set_value( 'json');?></textarea>
+                                <textarea name="json" id="" cols="20" rows="10" class="form-control "><?php echo set_value( 'json');?></textarea>
                             </div>
                         </div>
                         <div class=" form-group">

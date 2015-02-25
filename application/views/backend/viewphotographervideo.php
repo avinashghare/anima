@@ -7,7 +7,7 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Photographer Video Details
+                Creative Artist Video Details
             </header>
             <div class="drawchintantable">
                 <?php $this->chintantable->createsearch("");?>
@@ -15,10 +15,11 @@
                     <thead>
                         <tr>
                             <th data-field="id">ID</th>
-                            <th data-field="photographer">Photographer</th>
+<!--                            <th data-field="photographer">Photographer</th>-->
                             <th data-field="video">Video</th>
                             <th data-field="order">Order</th>
-                            <th data-field="photographeralbum">Photographer Album</th>
+                            <th data-field="action">Action</th>
+<!--                            <th data-field="photographeralbum">Photographer Album</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -29,7 +30,7 @@
         </section>
         <script>
             function drawtable(resultrow) {
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.photographer + "</td><td>" + resultrow.video + "</td><td>" + resultrow.order + "</td><td>" + resultrow.photographeralbum + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editphotographervideo?id=');?>" + resultrow.photographeralbum + "&photographervideo="+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletephotographervideo?id='); ?>" + resultrow.photographeralbum + "&photographervideo="+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.video + "</td><td>" + resultrow.order + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editphotographervideo?id=');?>" + resultrow.photographer + "&photographervideo="+resultrow.id+"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletephotographervideo?id='); ?>" + resultrow.photographer + "&photographervideo="+resultrow.id+"'><i class='icon-trash '></i></a></td></tr>";
             }
             generatejquery("<?php echo $base_url;?>");
         </script>

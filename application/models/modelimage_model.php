@@ -88,7 +88,7 @@ class modelimage_model extends CI_Model
     
     public function viewmodelgalleryimage($id)
 	{
-		$query=$this->db->query("SELECT * FROM `modelgalleryimage` WHERE `modelgallery`='$id'")->result();
+		$query=$this->db->query("SELECT * FROM `modelgalleryimage` WHERE `modelgallery`='$id' ORDER BY `order` ASC")->result();
 		return $query;
 	}
 }

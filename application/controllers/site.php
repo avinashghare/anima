@@ -1074,6 +1074,7 @@ class Site extends CI_Controller
         $this->form_validation->set_rules("name","Name","trim");
         $this->form_validation->set_rules("json","Json","trim");
         $this->form_validation->set_rules("category","category","trim");
+        $this->form_validation->set_rules("bio","bio","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
@@ -1086,6 +1087,7 @@ class Site extends CI_Controller
             $name=$this->input->get_post("name");
             $json=$this->input->get_post("json");
             $category=$this->input->get_post("category");
+            $bio=$this->input->get_post("bio");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1118,7 +1120,7 @@ class Site extends CI_Controller
                 
 			}
             
-            if($this->model_model->create($name,$json,$image,$category)==0)
+            if($this->model_model->create($name,$json,$image,$category,$bio)==0)
                 $data["alerterror"]="New model could not be created.";
             else
                 $data["alertsuccess"]="model created Successfully.";
@@ -1145,6 +1147,7 @@ class Site extends CI_Controller
         $this->form_validation->set_rules("name","Name","trim");
         $this->form_validation->set_rules("json","Json","trim");
         $this->form_validation->set_rules("category","category","trim");
+        $this->form_validation->set_rules("bio","bio","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
@@ -1159,6 +1162,7 @@ class Site extends CI_Controller
             $name=$this->input->get_post("name");
             $json=$this->input->get_post("json");
             $category=$this->input->get_post("category");
+            $bio=$this->input->get_post("bio");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1202,7 +1206,7 @@ class Site extends CI_Controller
                 $image=$image->image;
             }
             
-            if($this->model_model->edit($id,$name,$json,$image,$category)==0)
+            if($this->model_model->edit($id,$name,$json,$image,$category,$bio)==0)
                 $data["alerterror"]="New model could not be Updated.";
             else
                 $data["alertsuccess"]="model Updated Successfully.";
@@ -1733,6 +1737,7 @@ class Site extends CI_Controller
         $this->form_validation->set_rules("order","Order","trim");
         $this->form_validation->set_rules("content","Content","trim");
         $this->form_validation->set_rules("category","category","trim");
+        $this->form_validation->set_rules("bio","bio","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
@@ -1748,6 +1753,7 @@ class Site extends CI_Controller
             $order=$this->input->get_post("order");
             $content=$this->input->get_post("content");
             $category=$this->input->get_post("category");
+            $bio=$this->input->get_post("bio");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1781,7 +1787,7 @@ class Site extends CI_Controller
 			}
             
             
-            if($this->photographer_model->create($name,$city,$order,$content,$image,$category)==0)
+            if($this->photographer_model->create($name,$city,$order,$content,$image,$category,$bio)==0)
                 $data["alerterror"]="New photographer could not be created.";
             else
                 $data["alertsuccess"]="photographer created Successfully.";
@@ -1794,10 +1800,11 @@ class Site extends CI_Controller
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="editphotographer";
+        $data["page2"]="block/photographerblock";
         $data["title"]="Edit photographer";
         $data['category']=$this->photographercategory_model->getphotographercategorydropdown();
         $data["before"]=$this->photographer_model->beforeedit($this->input->get("id"));
-        $this->load->view("template",$data);
+        $this->load->view("templatewith2",$data);
     }
     public function editphotographersubmit()
     {
@@ -1809,6 +1816,7 @@ class Site extends CI_Controller
         $this->form_validation->set_rules("order","Order","trim");
         $this->form_validation->set_rules("content","Content","trim");
         $this->form_validation->set_rules("category","category","trim");
+        $this->form_validation->set_rules("bio","bio","trim");
         if($this->form_validation->run()==FALSE)
         {
             $data["alerterror"]=validation_errors();
@@ -1826,6 +1834,7 @@ class Site extends CI_Controller
             $order=$this->input->get_post("order");
             $content=$this->input->get_post("content");
             $category=$this->input->get_post("category");
+            $bio=$this->input->get_post("bio");
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -1870,7 +1879,7 @@ class Site extends CI_Controller
             }
             
             
-            if($this->photographer_model->edit($id,$name,$city,$order,$content,$image,$category)==0)
+            if($this->photographer_model->edit($id,$name,$city,$order,$content,$image,$category,$bio)==0)
                 $data["alerterror"]="New photographer could not be Updated.";
             else
                 $data["alertsuccess"]="photographer Updated Successfully.";
@@ -2512,17 +2521,17 @@ class Site extends CI_Controller
     {
         $access=array("1");
         $this->checkaccess($access);
-        $photographeralbum=$this->input->get('id');
+        $photographer=$this->input->get('id');
         $data["page"]="viewphotographervideo";
-        $data["page2"]="block/photographeralbumblock";
-        $data["before"]=$this->photographeralbum_model->beforeedit($this->input->get("id"));
-        $data["base_url"]=site_url("site/viewphotographervideojson?id=$photographeralbum");
+        $data["page2"]="block/photographerblock";
+        $data["before"]=$this->photographer_model->beforeedit($this->input->get("id"));
+        $data["base_url"]=site_url("site/viewphotographervideojson?id=$photographer");
         $data["title"]="View photographervideo";
         $this->load->view("templatewith2",$data);
     }
     function viewphotographervideojson()
     {
-        $photographeralbum=$this->input->get('id');
+        $photographer=$this->input->get('id');
         $elements=array();
         
         $elements[0]=new stdClass();
@@ -2570,7 +2579,7 @@ class Site extends CI_Controller
             $orderby="id";
             $orderorder="ASC";
         }
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_photographervideo`","WHERE `anima_photographervideo`.`photographeralbum`='$photographeralbum'");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `anima_photographervideo`","WHERE `anima_photographervideo`.`photographer`='$photographer'");
         $this->load->view("json",$data);
     }
 
@@ -2578,7 +2587,7 @@ class Site extends CI_Controller
     {
         $access=array("1");
         $this->checkaccess($access);
-        $data['photographeralbum']=$this->input->get('id');
+        $data['photographer']=$this->input->get('id');
         $data["page"]="createphotographervideo";
         $data["title"]="Create photographervideo";
         $this->load->view("template",$data);
@@ -2609,8 +2618,8 @@ class Site extends CI_Controller
                 $data["alerterror"]="New photographervideo could not be created.";
             else
                 $data["alertsuccess"]="photographervideo created Successfully.";
-            $data["redirect"]="site/viewphotographervideo?id=".$photographeralbum;
-            $this->load->view("redirect",$data);
+            $data["redirect"]="site/viewphotographervideo?id=".$photographer;
+            $this->load->view("redirect2",$data);
         }
     }
     public function editphotographervideo()
@@ -2619,7 +2628,7 @@ class Site extends CI_Controller
         $this->checkaccess($access);
         $data["page"]="editphotographervideo";
         $data["title"]="Edit photographervideo";
-        $data['photographeralbum']=$this->input->get('id');
+        $data['photographer']=$this->input->get('id');
         $data['photographervideo']=$this->input->get('photographervideo');
         $data["before"]=$this->photographervideo_model->beforeedit($this->input->get("photographervideo"));
         $this->load->view("template",$data);
@@ -2652,19 +2661,19 @@ class Site extends CI_Controller
                 $data["alerterror"]="New photographervideo could not be Updated.";
             else
                 $data["alertsuccess"]="photographervideo Updated Successfully.";
-            $data["redirect"]="site/viewphotographervideo?id=".$photographeralbum;
-            $this->load->view("redirect",$data);
+            $data["redirect"]="site/viewphotographervideo?id=".$photographer;
+            $this->load->view("redirect2",$data);
         }
     }
     public function deletephotographervideo()
     {
         $access=array("1");
         $this->checkaccess($access);
-        $photographeralbum=$this->input->get('id');
+        $photographer=$this->input->get('id');
         $photographervideo=$this->input->get('photographervideo');
         $this->photographervideo_model->delete($this->input->get("photographervideo"));
-        $data["redirect"]="site/viewphotographervideo?id=".$photographeralbum;
-        $this->load->view("redirect",$data);
+        $data["redirect"]="site/viewphotographervideo?id=".$photographer;
+        $this->load->view("redirect2",$data);
     }
     public function viewarticle()
     {

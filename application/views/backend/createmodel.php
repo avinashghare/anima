@@ -44,10 +44,17 @@
                             </div>
                         </div>
                         
+                    <div class="form-group" >
+                        <label class="col-sm-2 control-label" for="normal-field">Bio</label>
+                        <div class="col-sm-4">
+                            <textarea name="bio" id="" cols="20" rows="10" class="form-control tinymce fieldbioinput"><?php echo set_value(' bio ');?></textarea>
+
+                        </div>
+                    </div>
                     <div class="form-group hidden" >
                         <label class="col-sm-2 control-label" for="normal-field">json</label>
                         <div class="col-sm-4">
-                            <textarea name="json" id="" cols="20" rows="10" class="form-control tinymce fieldjsoninput"><?php echo json_encode($fieldjson,true); ?></textarea>
+                            <textarea name="json" id="" cols="20" rows="10" class="form-control fieldjsoninput"><?php echo json_encode($fieldjson,true); ?></textarea>
 
                         </div>
                     </div>

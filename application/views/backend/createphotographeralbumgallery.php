@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                Photographer Album Gallery Details
+                Creative Artist Sub-Category Album Details
             </header>
             <div class="panel-body">
                 <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createphotographeralbumgallerysubmit");?>' enctype='multipart/form-data'>

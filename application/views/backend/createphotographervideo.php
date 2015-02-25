@@ -8,15 +8,15 @@
     <div class="col-lg-12">
         <section class="panel">
             <header class="panel-heading">
-                photographervideo Details
+                Creative Artist Video Details
             </header>
             <div class="panel-body">
                 <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createphotographervideosubmit");?>' enctype='multipart/form-data'>
                     <div class="panel-body">
-                        <div class=" form-group" style="display:none;">
-                            <label class="col-sm-2 control-label" for="normal-field">Photographer Album</label>
+                        <div class=" form-group">
+                            <label class="col-sm-2 control-label" for="normal-field">Photographer</label>
                             <div class="col-sm-4">
-                                <input type="text" id="normal-field" class="form-control" name="photographeralbum" value='<?php echo set_value(' photographeralbum ',$photographeralbum);?>'>
+                                <input type="text" id="normal-field" class="form-control" name="photographer" value='<?php echo set_value(' photographer ',$photographer);?>'>
                             </div>
                         </div>
 <!--
