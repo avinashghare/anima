@@ -2826,6 +2826,17 @@ class Site extends CI_Controller
         $this->load->view("json",$data);
    
     }
+    public function savenewsimageorder()
+    {
+        $order=$this->input->get('order');
+        $id=$this->input->get('id');
+//        echo $id."id<br>";
+//        echo $order."order<br>";
+        $data1=$this->newsimage_model->savenewsimageorder($id,$order);
+        $data["message"]=$data1;
+        $this->load->view("json",$data);
+   
+    }
     public function savephotographerorder()
     {
         $order=$this->input->get('order');

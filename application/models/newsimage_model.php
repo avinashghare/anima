@@ -18,8 +18,8 @@ class newsimage_model extends CI_Model
 	}
 	function viewnewsimagebynews($id)
 	{
-		$query="SELECT `newsimage`.`id`,`newsimage`.`news`, `newsimage`.`image`, `anima_news`.`title` AS `newsname`
-        FROM `newsimage` LEFT OUTER JOIN `anima_news` ON `anima_news`.`id`=`newsimage`.`news` WHERE `newsimage`.`news`='$id'";
+		$query="SELECT `newsimage`.`id`,`newsimage`.`news`,`newsimage`.`name`, `newsimage`.`image`,`newsimage`.`order`, `anima_news`.`title` AS `newsname`
+        FROM `newsimage` LEFT OUTER JOIN `anima_news` ON `anima_news`.`id`=`newsimage`.`news` WHERE `newsimage`.`news`='$id' ORDER BY `newsimage`.`order`";
         $result=$this->db->query($query)->result();
         
         return $result;
@@ -70,6 +70,13 @@ class newsimage_model extends CI_Model
 		return $return;
 	}
     
-    
+    public function savenewsimageorder($id,$order)
+    {
+//        $data=array("order" => $order);
+//        $this->db->where( "id", $id );
+//        $query=$this->db->update( "newsimage", $data );
+        $this->db->query("UPDATE `newsimage` SET `order`='$order' WHERE `id`='$id'");
+        return 1;
+    }
 }
 ?>
