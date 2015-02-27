@@ -142,8 +142,10 @@
                <?php foreach($photographercats as $photographercat) { ?>
                 <a href="<?php echo site_url("website/artistgallery?id=").$photographercat->id."&creative=".$photographer->id;;?>" id="editorial_tab"><?php echo $photographercat->name; ?></a>
                 <?php } ?>
+<!--
                 <a href="#" id="videos_tab">Videos</a>
                 <a href="#" id="bio_tab">Bio</a>
+-->
             </div>
 
             <div id="editorial">
