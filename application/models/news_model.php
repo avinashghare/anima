@@ -42,6 +42,11 @@ class news_model extends CI_Model
 		$query=$this->db->query("SELECT `image` FROM `anima_news` WHERE `id`='$id'")->row();
 		return $query;
 	}
+     public function getallnewsimagebyid($id)
+	{
+		$query=$this->db->query("SELECT `image` FROM `newsimage` WHERE `news`='$id'")->result();
+		return $query;
+	}
     public function getall()
     {
         $query=$this->db->query("SELECT * from `anima_news`")->result();

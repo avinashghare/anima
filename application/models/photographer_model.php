@@ -96,6 +96,12 @@ WHERE `photographeralbum` IN (SELECT `id` FROM `anima_photographeralbum` WHERE `
         $query=$this->db->query("SELECT * FROM `anima_photographer` WHERE `category`='$id'")->result();
         return $query;
     }
+    public function getname($id)
+    {
+        $query=$this->db->query("SELECT `name` FROM `anima_photographer` WHERE `id`='$id'")->row();
+        return $query;
+    }
+
     
 }
 ?>

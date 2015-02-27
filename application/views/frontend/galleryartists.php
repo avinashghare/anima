@@ -198,8 +198,10 @@
     <div id="backto">        
     <div class="wrapper">
         <div class="container" style="margin-top: 0;">
+           
             <div class="tab_menu">
-                <a href="<?php echo site_url("website/models?id=").$photographeralbums->id; ?>"><?php echo $photographeralbums->title; ?></a><span class="photographer_name model_up_name"><i></i></span>
+                <a style="cursor:pointer;" onclick="goBack();">BACK</a>
+                <a href="<?php echo site_url("website/models?id=").$photographeralbums->id; ?>"><?php echo $photographeralbums->title; ?></a><span class="photographer_name model_up_name"><i><?php echo $creativename->name; ?></i></span>
             </div>
             <div class="photo_tabs" style="padding-top: 0;">
                <?php foreach($photographeralbums as $gal) { ?>
@@ -339,7 +341,12 @@
              
     </div>
 	
-	
+	<script>
+    function goBack() {
+    window.history.back();
+    return false;
+}    
+    </script>
 
 	<!--/#scripts--> 
     <script language=JavaScript>

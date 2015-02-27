@@ -6,6 +6,7 @@ class Website extends CI_Controller
 	public function index( )
 	{
 		$data["page"]="index";
+$data["newss"]=$this->news_model->getall();
         $data["model1"]=$this->model_model->getmodel1();
         $data["model2"]=$this->model_model->getmodel2();
         $data["model3"]=$this->model_model->getmodel3();
@@ -20,6 +21,7 @@ class Website extends CI_Controller
 	{
         $newsid=$this->input->get_post("id");
 		$data["news"]=$this->news_model->beforeedit($newsid);
+        $data["images"]=$this->news_model->getallnewsimagebyid($newsid);
         $this->load->view("frontend/news_inner",$data);
 	}
     //FEAMALES IN TOWN
@@ -128,6 +130,7 @@ class Website extends CI_Controller
         $creativeid = $this->input->get_post("creative");
         //GALLERY ID
         $data["creativeid"]=$creativeid;
+        $data["creativename"]=$this->photographer_model->getname($creativeid);
         $album = $this->input->get_post("id");
         //GET PHOTOGRAPHER CATEGORIES
         $data["photographeralbums"] = $this->photographeralbumgallery_model->getallalbumgallerybyartist($creativeid);

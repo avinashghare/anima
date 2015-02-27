@@ -88,105 +88,22 @@
             <hr class="divider">
             <!--<div id="insta"></div>-->
             <div class="title"><strong>NEWS</strong></div>
+            
+            
+   
             <div id="news_block">
                 <ul id="lazyScrollLoading">
-                <li>    
+                <?php foreach($newss as $news) { ?>
+                <a href="<?php echo site_url("website/newsinner?id=").$news->id;?>"><li>    
                 <div class="news">
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news1.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
+                    <img src="<?php echo base_url("uploads")."/".$news->image;?>">
+                    <strong><?php echo $news->title;?></strong><hr />
+                    <?php echo $news->content;?>
                 </div>
-                </li>
-                <li>
-                <div class="news">
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news2.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news">
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news3.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news load2">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news4.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news load2">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news5.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news load2">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news6.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news load2">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news1.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news load2">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news3.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                    <div class="loader load3">
-                    <img src="<?php echo base_url("frontend")."/";?>images/spinner.gif" width="20" height="20">
-                    <i>Loading More News</i>
-                </div>
-                <li>
-                <div class="news  load4">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news7.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news  load4">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news8.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news  load4">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news9.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
-                <li>
-                <div class="news load4">
-                    <span class="date">12.06.2014</span>
-                    <img src="<?php echo base_url("frontend")."/";?>images/news/news6.jpg">
-                    <strong>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</strong><hr />
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.
-                </div>
-                </li>
+                </li></a>
+                
+                <?php } ?>
+               
                 </ul>
                 
 
@@ -195,6 +112,11 @@
             
                     
         </div>
+
+
+
+            
+            
             <?php include('footer.php'); ?>
     </div>
 	
