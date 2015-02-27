@@ -1,49 +1,79 @@
-<center><a href="index.php"><img class="logo" src="<?php echo base_url('frontassets/images/logo.png'); ?>" alt="logo"></a></center>
+<script language=JavaScript>
+
+
+////Disable right mouse click Script
+////By Maximus (maximus@nsimail.com) w/ mods by DynamicDrive
+////For full source code, visit http://www.dynamicdrive.com
+//
+//var message="Function Disabled!";
+//
+/////////////////////////////////////
+//function clickIE4(){
+//if (event.button==2){
+//alert(message);
+//return false;
+//}
+//}
+//
+//function clickNS4(e){
+//if (document.layers||document.getElementById&&!document.all){
+//if (e.which==2||e.which==3){
+//alert(message);
+//return false;
+//}
+//}
+//}
+//
+//if (document.layers){
+//document.captureEvents(Event.MOUSEDOWN);
+//document.onmousedown=clickNS4;
+//}
+//else if (document.all&&!document.getElementById){
+//document.onmousedown=clickIE4;
+//}
+//
+//document.oncontextmenu=new Function("alert(message);return false")
+
+// --> 
+</script>
+<center><a href="<?php echo site_url();?>"><img class="logo" src="<?php echo base_url("frontend")."/";?>images/logo.png" alt="logo"></a></center>
 <header class="menu">
-       <?php 
-//echo base_url('frontassets/images/logo.png');
-    ?>
         <ul>
+        <?php 
+            $catmodels= $this->category_model->getall();
+            $catcreativeartists = $this->photographercategory_model->getcreativeartistscategory();
+        ?>
         <li><a href="#" id="model">Models</a>
-            <ul class="drop_down">
-                <li><a href="<?php echo site_url('website/females_in_town'); ?>">Female In Town</a></li>
-                <li><a href="#">Female Out of Town</a></li>
-                <li><a href="#">Male In Town</a></li>
-                <li><a href="#">Male Out of Town</a></li>
+            <ul class="">
+               <?php foreach($catmodels as $catmodel) {?> <li><a href="<?php echo site_url("website/models?id=").$catmodel->id;?>"><?php echo $catmodel->name;?></a></li> <?php } ?>
             </ul>
         </li>
         <li><a href="#">Creative Artists</a>
-            <ul class="drop_down">
-                <li><a href="<?php echo site_url('website/photographers'); ?>">Photographers</a></li>
-                <li><a href="<?php echo site_url('website/hair_makeup'); ?>">Hair &amp; Make-up Artists</a></li>
-                <li><a href="<?php echo site_url('website/hair_stylists'); ?>">Hair Stylists</a></li>
-                <li><a href="<?php echo site_url('website/stylists'); ?>">Stylists</a></li>
+            <ul class="">
+               <?php foreach($catcreativeartists as $catartist) {?> <li><a href="<?php echo site_url("website/creativeartists?id=").$catartist->id."&name=".$catartist->name;?>"><?php echo $catartist->name;?></a></li> <?php } ?>
             </ul>
         </li>
         <li><a href="#">Agency</a>
-            <ul class="drop_down about_drop">
-                <li><a href="<?php echo site_url('website/about'); ?>">About Us</a></li>
-                <li><a href="<?php echo site_url('website/become_model'); ?>">Become A Model</a></li>
-                <li><a href="<?php echo site_url('website/contact'); ?>">Contact Us</a></li>
+            <ul class="">
+                <li><a href="<?php echo site_url("website/about");?>">About Us</a></li>
+                <li><a href="<?php echo site_url("website/become_model");?>">Become A Model</a></li>
+                <li><a href="<?php echo site_url("website/contact");?>">Contact Us</a></li>
             </ul>
         </li>
-        <li><a href="<?php echo site_url('website/news'); ?>">News</a></li>
+        <li><a href="<?php echo site_url("website/news");?>">News</a></li>
         </ul>
     </header>
 
 
 <div id="dl-menu" class="dl-menuwrapper">
-		<a href="index.php"><div class="mobile_logo"></div></a>
-        	<?php 
-//echo site_url('site/females_in_town?id=').$row->photographeralbum.'&photographeralbumimage='.$row->id;
-    ?>			
-        			
+		<a href="<?php echo base_url("frontend")."/";?>index.php"><div class="mobile_logo"></div></a>
+        				
        <div class="dl-trigger menu_click"></div>
 						<ul class="dl-menu">
 							<li>
 								<a href="#">Models</a>
 								<ul class="dl-submenu">
-								    <li><a href="<?php echo site_url('website/females_in_town'); ?>">Female In Town</a></li>
+								    <li><a href="females_in_town.php">Female In Town</a></li>
                                     <li><a href="#">Female Out of Town</a></li>
                                     <li><a href="#">Male In Town</a></li>
                                     <li><a href="#">Male Out of Town</a></li>
@@ -51,55 +81,22 @@
 							</li>
                             <li><a href="#">Creative Artists</a>
                                         <ul class="dl-submenu">
-                                            <li><a href="<?php echo site_url('website/photographers'); ?>">Photographers</a></li>
-                                            <li><a href="<?php echo site_url('website/hair_makeup'); ?>">Hair &amp; Make-up Artists</a></li>
-                                            <li><a href="<?php echo site_url('website/hair_stylists'); ?>">Hair Stylists</a></li>
-                                            <li><a href="<?php echo site_url('website/stylists'); ?>">Stylists</a></li>
+                                            <li><a href="photographers.php">Photographers</a></li>
+                                            <li><a href="hair_makeup.php">Hair &amp; Make-up Artists</a></li>
+                                            <li><a href="hair_stylists.php">Hair Stylists</a></li>
+                                            <li><a href="stylists.php">Stylists</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">Agency</a>
                                         <ul class="dl-submenu">
-                                            <li><a href="<?php echo site_url('website/about'); ?>">About Us</a></li>
-                                            <li><a href="<?php echo site_url('website/bacome_model'); ?>">Become A Model</a></li>
-                                            <li><a href="<?php echo site_url('website/contact'); ?>">Contact Us</a></li>
+                                            <li><a href="about.php">About Us</a></li>
+                                            <li><a href="become_model.php">Become A Model</a></li>
+                                            <li><a href="contact.php">Contact Us</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="<?php echo site_url('website/news'); ?>">News</a></li>
+                                    <li><a href="<?php echo site_url("website/news");?>">News</a></li>
                             </ul>
 					</div>
 
-        <!--<header class="mobile_menu"> 
-        <a href="index.php"><div class="mobile_logo"></div></a>
-        <ul class="first_level">
-        <li id="second_level"><a href="#">Models</a>
-            <ul class="second_level">
-                <li id="back"><a href="#">Back</a></li>
-                <li><a href="females_in_town.php">Female In Town</a></li>
-                <li><a href="#">Female Out of Town</a></li>
-                <li><a href="#">Male In Town</a></li>
-                <li><a href="#">Male Out of Town</a></li>
-            </ul>    
-        </li>
-        <li><a href="#">Creative Artists</a>
-            <ul class="second_level">
-                <li id="back"><a href="#">Back</a></li>
-                <li><a href="photographers.php">Photographers</a></li>
-                <li><a href="hair_makeup.php">Hair &amp; Make-up Artists</a></li>
-                <li><a href="hair_stylists.php">Hair Stylists</a></li>
-                <li><a href="stylists.php">Stylists</a></li>
-            </ul>
-        </li>    
-        <li><a href="#">Agency</a>
-            <ul class="second_level">
-                <li id="back"><a href="#">Back</a></li>
-                <li><a href="about.php">About Us</a></li>
-                <li><a href="become_model.php">Become A Model</a></li>
-                <li><a href="contact.php">Contact Us</a></li>
-            </ul>
-        </li>
-        <li><a href="news.php">News</a></li>  
-        </ul>
-        <div class="menu_click"></div>
-    </header>-->   
-
+  
   

@@ -3570,5 +3570,237 @@ class Site extends CI_Controller
 		$data['redirect']="site/viewnewsimage?id=".$newsid;
 		$this->load->view("redirect",$data);
 	}
+    public function viewsliderone()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="viewsliderone";
+        $data["base_url"]=site_url("site/viewslideronejson");
+        $data["title"]="View sliderone";
+        $this->load->view("template",$data);
+    }
+    function viewslideronejson()
+    {
+        $elements=array();
+        
+        $elements[0]=new stdClass();
+        $elements[0]->field="`sliderone`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`sliderone`.`name`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Name";
+        $elements[1]->alias="name";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`sliderone`.`image`";
+        $elements[2]->sort="1";
+        $elements[2]->header="image";
+        $elements[2]->alias="image";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`sliderone`.`order`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Order";
+        $elements[3]->alias="order";
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `sliderone`");
+        $this->load->view("json",$data);
+    }
+
+    public function createsliderone()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data['category']=$this->slideronecategory_model->getslideronecategorydropdown();
+        $data["page"]="createsliderone";
+        $data["title"]="Create sliderone";
+        $this->load->view("template",$data);
+    }
+    public function createslideronesubmit() 
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("name","Name","trim");
+        $this->form_validation->set_rules("city","City","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        $this->form_validation->set_rules("content","Content","trim");
+        $this->form_validation->set_rules("category","category","trim");
+        $this->form_validation->set_rules("bio","bio","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data['category']=$this->slideronecategory_model->getslideronecategorydropdown();
+            $data["page"]="createsliderone";
+            $data["title"]="Create sliderone";
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $name=$this->input->get_post("name");
+            $city=$this->input->get_post("city");
+            $order=$this->input->get_post("order");
+            $content=$this->input->get_post("content");
+            $category=$this->input->get_post("category");
+            $bio=$this->input->get_post("bio");
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            
+            
+            if($this->sliderone_model->create($name,$city,$order,$content,$image,$category,$bio)==0)
+                $data["alerterror"]="New sliderone could not be created.";
+            else
+                $data["alertsuccess"]="sliderone created Successfully.";
+            $data["redirect"]="site/viewsliderone";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function editsliderone()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="editsliderone";
+        $data["page2"]="block/slideroneblock";
+        $data["title"]="Edit sliderone";
+        $data['category']=$this->slideronecategory_model->getslideronecategorydropdown();
+        $data["before"]=$this->sliderone_model->beforeedit($this->input->get("id"));
+        $this->load->view("templatewith2",$data);
+    }
+    public function editslideronesubmit()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->form_validation->set_rules("id","ID","trim");
+        $this->form_validation->set_rules("name","Name","trim");
+        $this->form_validation->set_rules("city","City","trim");
+        $this->form_validation->set_rules("order","Order","trim");
+        $this->form_validation->set_rules("content","Content","trim");
+        $this->form_validation->set_rules("category","category","trim");
+        $this->form_validation->set_rules("bio","bio","trim");
+        if($this->form_validation->run()==FALSE)
+        {
+            $data["alerterror"]=validation_errors();
+            $data["page"]="editsliderone";
+            $data["title"]="Edit sliderone";
+            $data['category']=$this->slideronecategory_model->getslideronecategorydropdown();
+            $data["before"]=$this->sliderone_model->beforeedit($this->input->get("id"));
+            $this->load->view("template",$data);
+        }
+        else
+        {
+            $id=$this->input->get_post("id");
+            $name=$this->input->get_post("name");
+            $city=$this->input->get_post("city");
+            $order=$this->input->get_post("order");
+            $content=$this->input->get_post("content");
+            $category=$this->input->get_post("category");
+            $bio=$this->input->get_post("bio");
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                    //return false;
+                }  
+                else
+                {
+                    //print_r($this->image_lib->dest_image);
+                    //dest_image
+                    $image=$this->image_lib->dest_image;
+                    //return false;
+                }
+                
+			}
+            
+            if($image=="")
+            {
+            $image=$this->sliderone_model->getslideroneimagebyid($id);
+               // print_r($image);
+                $image=$image->image;
+            }
+            
+            
+            if($this->sliderone_model->edit($id,$name,$city,$order,$content,$image,$category,$bio)==0)
+                $data["alerterror"]="New sliderone could not be Updated.";
+            else
+                $data["alertsuccess"]="sliderone Updated Successfully.";
+            $data["redirect"]="site/viewsliderone";
+            $this->load->view("redirect",$data);
+        }
+    }
+    public function deletesliderone()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $this->sliderone_model->delete($this->input->get("id"));
+        $data["redirect"]="site/viewsliderone";
+        $this->load->view("redirect",$data);
+    }
 }
 ?>

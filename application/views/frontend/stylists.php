@@ -11,25 +11,12 @@
     <title>Anima Creative Management</title>
 	
 	<!--CSS-->
-	
-    <link href="<?php echo base_url('frontassets/css/style.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('frontassets/css/gallery.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('frontassets/css/insta.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('frontassets/css/dl-menu.css'); ?>" rel="stylesheet">
-    
+	<link href="<?php echo base_url("frontend")."/";?>css/style.css" rel="stylesheet">	
+	<link href="<?php echo base_url("frontend")."/";?>css/dl-menu.css" rel="stylesheet">	
+	<link href="<?php echo base_url("frontend")."/";?>css/insta.css" rel="stylesheet">	
+    <script src="<?php echo base_url("frontend")."/";?>js/modernizr.custom.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="<?php echo base_url('frontassets/js/modernizr.custom.js'); ?>"></script>
-    <script src="<?php echo base_url('frontassets/js/slider.js'); ?>"></script>
-    <script src="<?php echo base_url('frontassets/js/jquery.dlmenu.js'); ?>"></script>
-<!--
-	<link href="css/style.css" rel="stylesheet">	
-	<link href="css/dl-menu.css" rel="stylesheet">	
-	<link href="css/insta.css" rel="stylesheet">	
-    <script src="js/modernizr.custom.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="js/jquery.dlmenu.js"></script>
--->
-    
+    <script src="<?php echo base_url("frontend")."/";?>js/jquery.dlmenu.js"></script>
 		<script>
 			$(function() {
 				$( '#dl-menu' ).dlmenu();
@@ -53,9 +40,7 @@
         <div id="loaderImage"></div>
     </div>-->
     <div class="wrapper">
-    <?php
-$this->load->view("frontend/header");
-        ?>
+    <?php $this->load->view("frontend/header"); ?>
         <!--<header class="mobile_menu"> 
             <a href="index.php"><div class="mobile_logo"></div></a>
             <div id="dl-menu" class="dl-menuwrapper">
@@ -81,44 +66,19 @@ $this->load->view("frontend/header");
         <div class="container">
             <span class="title_section">Stylists </span>
             <div class="photographers" style="height: 300px;">
-               <?php
-                foreach($photographer as $row)
-                {
-                ?>
-                <div class="col-5 model_single"><a href="#"><img src="<?php echo base_url('frontassets/images/photographers/george.jpg'); ?>" class="displayed" alt="1"><span class="model_name"><?php echo $row->name;?><br /><?php echo $row->city;?></span></a></div>
-                <?php 
-                }
-                ?>
+                <div class="col-5 model_single"><a href="#"><img src="<?php echo base_url("frontend")."/";?>images/photographers/miguel.jpg" class="displayed" alt="1"><span class="model_name">Zeenat Wilkinson<br />Aukland</span></a></div>
+                    
         </div>
-                                
-            <div id="footer">
-                <hr class="footer_top" />
-                <div class="footer_menu">
-                <ol class="pxmenu">
-                    <li>Contact Us</li>
-                    <li>Terms & Conditions</li>
-                    <li>Privacy Policy</li>
-                    <li>Careers</li>
-                    <li>FAQs</li>
-                </ol>
-                </div>
-                <div class="copyright">© Copyright ANIMA CREATIVES 2014</div>
-                <div class="hepta">MADE WITH LOVE BY HEPTA</div>
-            </div>
-            </div>
-    
+        <?php include('footer.php'); ?>
         </div>
-        
-             
-    </div>
 	
 	
 
 	<!--/#scripts--> 
     
-    <!--<script type="text/javascript" src="js/jquery.js"></script>-->
-    <script type="text/javascript" src="js/custom.js"></script>
-    <script type="text/javascript" src="js/jquery.instastream.js"></script>
+    <!--<script type="text/javascript" src="<?php echo base_url("frontend")."/";?>js/jquery.js"></script>-->
+    <script type="text/javascript" src="<?php echo base_url("frontend")."/";?>js/custom.js"></script>
+    <script type="text/javascript" src="<?php echo base_url("frontend")."/";?>js/jquery.instastream.js"></script>
     
 </body>
 
