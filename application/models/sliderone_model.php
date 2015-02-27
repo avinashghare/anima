@@ -89,5 +89,20 @@ WHERE `slideronealbum` IN (SELECT `id` FROM `slideronealbum` WHERE `sliderone`='
         return $query;
     }
     
+    public function viewsliderone()
+	{
+		$query=$this->db->query("SELECT * FROM `sliderone` ORDER BY `order` ASC")->result();
+		return $query;
+	}
+    
+    public function saveslideroneorder($id,$order)
+    {
+//        $data=array("order" => $order);
+//        $this->db->where( "id", $id );
+//        $query=$this->db->update( "sliderone", $data );
+        $this->db->query("UPDATE `sliderone` SET `order`='$order' WHERE `id`='$id'");
+        return 1;
+    }
+    
 }
 ?>

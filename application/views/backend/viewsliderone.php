@@ -24,9 +24,12 @@ foreach($table as $row) {
                               <div class="col-md-2"><a href="<?php echo site_url('site/editsliderone?id=').$row->id;?>" class="btn btn-primary btn-xs">
 								<i class="icon-pencil"></i>
 							</a>
+<!--
 							<a href="<?php echo site_url('site/deletesliderone?id=').$row->id; ?>" class="btn btn-danger btn-xs">
 								<i class="icon-trash "></i>
-							</a></div>
+							</a>
+-->
+                         </div>
                           </div>
                           
                           
