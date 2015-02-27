@@ -76,9 +76,7 @@ class Website extends CI_Controller
         $gallery = $this->photographeralbum_model->getfirstgallery($creativeid);
         //REDIRCT TO NEW PAGE WITH GALLERY ID AND MODEL ID
         $newurl=site_url("website/artistgallery?id=$gallery&creative=$creativeid");
-        header("Location: $newurl");
-        
-        
+        header("Location: $newurl");       
     }
     public function artistgallery()
     {
@@ -92,7 +90,7 @@ class Website extends CI_Controller
         $data["photographer"] = $this->photographer_model->getsinglephotographer($creativeid);
         //GET PHOTOGRAPHER CATEGORIES
         $data["photographercats"] = $this->photographeralbum_model->getallbyartist($creativeid);
-        //GET CURRENT CATEGORY ALBUMS
+        //GET CURRENT CATEGORY ALBUM
         $data["albums"] = $this->photographeralbumgallery_model->getalbumbygallery($galleryid);
         //GET PHOTOGRAPHER VIDEO
         $data["videos"] = $this->photographervideo_model->getallbyphotographer($creativeid);
@@ -113,6 +111,29 @@ class Website extends CI_Controller
         $this->load->view("frontend/gallery2",$data);
     }
     
+    //OTHER THAN PHOTOGRAPHERS WILL CALL THIS PAGE
+    public function creativealbuminner()
+    {
+        //ID OF ARTIST
+        $creativeid = $this->input->get_post("id");
+        //FIND FIRST ALBUM
+        $albumgallery = $this->photographeralbum_model->getfirstalbumgallery($creativeid);
+        //REDIRCT TO NEW PAGE WITH GALLERY ID AND MODEL ID
+        $newurl=site_url("website/galleryartist?id=$albumgallery->photographeralbum&creative=$creativeid");
+        header("Location: $newurl");
+    }
+    public function galleryartist()
+    {
+        //ID OF ARTIST
+        $creativeid = $this->input->get_post("creative");
+        //GALLERY ID
+        $data["creativeid"]=$creativeid;
+        $album = $this->input->get_post("id");
+        //GET PHOTOGRAPHER CATEGORIES
+        $data["photographeralbums"] = $this->photographeralbumgallery_model->getallalbumgallerybyartist($creativeid);
+        $data["albumimages"] = $this->photographeralbumgallery_model->getallimagesbyalbum($album);
+        $this->load->view("frontend/galleryartists",$data);
+    }
     public function about()
     {
         $this->load->view("frontend/about");

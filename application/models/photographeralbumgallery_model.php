@@ -81,6 +81,11 @@ FROM  `photographeralbumgalleryimage` WHERE `photographeralbumgallery`='$id' ORD
         $query=$this->db->query("SELECT `anima_photographeralbum`.`id` as `subcatid`,`anima_photographeralbum`.`name` as `subcatname`,`anima_photographer`.`id` as `artistid`,`anima_photographer`.`name` as `artistname` FROM `photographeralbumgallery` INNER JOIN  `anima_photographeralbum` ON `anima_photographeralbum`.`id`=`photographeralbumgallery`.`photographeralbum` INNER JOIN `anima_photographer` ON `anima_photographer`.`id`=`anima_photographeralbum`.`photographer` WHERE `photographeralbumgallery`.`id`='$id'")->row();
         return $query;
     }
+    public function getallalbumgallerybyartist($id)
+    {
+        $query=$this->db->query("SELECT `photographeralbumgallery`.`title`, `photographeralbumgallery`.`id` FROM `photographeralbumgallery` INNER JOIN `anima_photographeralbum` ON `photographeralbumgallery`.`photographeralbum` = `anima_photographeralbum`.`id` WHERE `anima_photographeralbum`.`photographer` = '$id' ORDER BY `photographeralbumgallery`.`order`")->result();
+        return $query;
+    }
         
 }
 ?>

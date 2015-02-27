@@ -257,10 +257,10 @@
                     <a href="#" class="next next-navigation"><img src="<?php echo base_url("frontend")."/";?>images/next.png"></a>
                     <div class="carousel carousel-navigation">
                         <ul>
-                            <li id="first_child"><img src="<?php echo base_url("uploads")."/".$modelimages[0]->image ?>" alt=""></li>
+                            <li id="first_child"><img src="<?php echo base_url("uploads")."/".$modelimages[0]->image; ?>" alt=""></li>
                             <?php for($y=1; $y<$length; $y++) { if($modelimages[$y]->type == "1") { ?>
-                            <li><img src="<?php echo base_url("uploads")."/".$modelimages[$y]->image ?>" alt=""></li>         <?php } else if($modelimages[$y]->type=="0") {  ?>
-                            <li><img src="<?php echo base_url("uploads")."/".$modelimages[$y]->image ?>" alt="" style="float: left;"><img src="<?php echo base_url("uploads")."/".$modelimages[++$y]->image ?>"  alt="" style="float: left;"></li>
+                            <li><img src="<?php echo base_url("uploads")."/".$modelimages[$y]->image; ?>" alt=""></li>         <?php } else if($modelimages[$y]->type=="0") {  ?>
+                            <li><img src="<?php echo base_url("uploads")."/".$modelimages[$y]->image; ?>" alt="" style="float: left;"><img src="<?php echo base_url("uploads")."/".$modelimages[++$y]->image; ?>"  alt="" style="float: left;"></li>
                             <?php } }; ?>
                             
                         </ul>

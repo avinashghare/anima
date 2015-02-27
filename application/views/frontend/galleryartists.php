@@ -45,7 +45,6 @@
              $('.first_img').css('height', img_height);
              $('.model_info').css('height', stageHeight - 10);
          }
-         
          $('.prev-stage').trigger("click");
          $('.prev-navigation').trigger("click");
 
@@ -57,7 +56,6 @@
          //        $('#' + id + '_div').fadeIn();
          //    });
          //});
-
 
          $('#editorial_tab').click(function () {
              $('#editorial').fadeIn();
@@ -71,7 +69,6 @@
              $('#videos_tab').removeClass('tab_active');
              $('#bio_tab').removeClass('tab_active');
          });
-
          $('#beauty_tab').click(function () {
              $('#editorial').fadeOut();
              $('#beauty').fadeIn();
@@ -84,7 +81,6 @@
              $('#videos_tab').removeClass('tab_active');
              $('#bio_tab').removeClass('tab_active');
          });
-
          $('#advertising_tab').click(function () {
              $('#editorial').fadeOut();
              $('#beauty').fadeOut();
@@ -97,7 +93,6 @@
              $('#videos_tab').removeClass('tab_active');
              $('#bio_tab').removeClass('tab_active');
          });
-
          $('#videos_tab').click(function () {
              $('#editorial').fadeOut();
              $('#beauty').fadeOut();
@@ -110,7 +105,6 @@
              $('#videos_tab').addClass('tab_active');
              $('#bio_tab').removeClass('tab_active');
          });
-
          $('#bio_tab').click(function () {
              $('#editorial').fadeOut();
              $('#beauty').fadeOut();
@@ -123,18 +117,24 @@
              $('#videos_tab').removeClass('tab_active');
              $('#bio_tab').addClass('tab_active');
          });
-
          //$('.carousel-navigation').click(function () {
          //    $('.connected-carousels .stage').css("opacity", "0");
          //    //$('.connected-carousels .stage').delay(500).css("opacity", "100");
          //});
-
          //$('.next-stage').click(function () {
          //    $('.connected-carousels .stage').fadeOut(10);
          //    $('.connected-carousels .stage').delay(100).fadeIn(10);
-
          //});
 
+         //$('.prev-stage').click(function () {
+         //    $('.connected-carousels .stage').css("opacity", "0");
+         //    $('.connected-carousels .stage').delay(500).css("opacity", "100");
+         //});
+         //var doc = $(document).height();
+         //$("#backto").css("height",doc);
+         //$("#backto").click(function () {
+         //    alert(1);
+         //});
 
          $('.carousel-navigation').click(function () {
              leftspace();
@@ -147,25 +147,26 @@
              leftspace();
          });
 
-         //$('.prev-stage').click(function () {
-         //    $('.connected-carousels .stage').css("opacity", "0");
-         //    $('.connected-carousels .stage').delay(500).css("opacity", "100");
-
-         //});
-
          //var doc = $(document).height();
          //$("#backto").css("height",doc);
-
          //$("#backto").click(function () {
          //    alert(1);
          //});
 
          leftspace();
-
          
+         //$(".two_img img").each(function () {
+         //    var carousel_width = $('.carousel-stage').width();
+         //    var double_width = $(this).width();
+         //    var double_left = carousel_width - double_width;
+         //    var double_half = double_left / 2;
+         //    $('.two_img').css("margin-left", double_half);
+
+         //});
+
+
      });
 
-     
      function leftspace() {
          var carousel_width = $('.carousel-stage').width();
          var double_width = $('.double_img').width();
@@ -185,6 +186,7 @@
         @media screen and (min-width: 1024px){
             #editorial, #beauty, #advertising, #videos, #bio{ width: 1024px; top:30px;}
         }
+
 </style> 
 </head><!--/head-->
 <body>
@@ -197,10 +199,14 @@
     <div class="wrapper">
         <div class="container" style="margin-top: 0;">
             <div class="tab_menu">
-               
-                <a href="<?php echo site_url("website/artistgallery?id=$category->subcatid&creative=$category->artistid"); ?>"><?php echo $category->subcatname ?></a><span class="photographer_name model_up_name" style="opacity:1;"><i><?php echo $category->artistname; ?></i></span>
+                <a href="<?php echo site_url("website/models?id=").$photographeralbums->id; ?>"><?php echo $photographeralbums->title; ?></a><span class="photographer_name model_up_name"><i></i></span>
             </div>
-            
+            <div class="photo_tabs" style="padding-top: 0;">
+               <?php foreach($photographeralbums as $gal) { ?>
+                <a href="<?php echo site_url("website/galleryartist?id=").$gal->id."&creative=".$creativeid; ?>" id="editorial_tab"><?php echo $gal->title ?></a>
+                <?php } ?>
+                
+            </div>
 
             <div id="editorial">
             
@@ -209,11 +215,11 @@
                     <div class="carousel carousel-stage">
                         <ul>
                             
-                            <?php $length = count($modelimages); for($x = 0; $x<$length; $x++) { 
-                            if($modelimages[$x]->type == "1") { ?>
-                            <li><img src="<?php echo base_url("uploads")."/".$modelimages[$x]->image ?>" height="100%" style="width:98%; box-shadow: 2px 2px 4px #777; " alt=""></li>
-                            <?php } else if($modelimages[$x]->type=="0"){?>                     
-                            <li><div class="double_img two_img"><img src="<?php echo base_url("uploads")."/".$modelimages[$x]->image ?>" style="float: left;" alt=""><img src="<?php echo base_url("uploads")."/".$modelimages[++$x]->image ?>" style="float: left;" alt=""></div></li>
+                            <?php $length = count($albumimages); for($x = 0; $x<$length; $x++) { 
+                            if($albumimages[$x]->type == "1") { ?>
+                            <li><img src="<?php echo base_url("uploads")."/".$albumimages[$x]->image ?>" height="100%" style="width:98%; box-shadow: 2px 2px 4px #777; " alt=""></li>
+                            <?php } else if($albumimages[$x]->type=="0"){?>                     
+                            <li><div class="double_img two_img"><img src="<?php echo base_url("uploads")."/".$albumimages[$x]->image ?>" style="float: left;" alt=""><img src="<?php echo base_url("uploads")."/".$albumimages[++$x]->image ?>" style="float: left;" alt=""></div></li>
                             <?php }; };?>
                         </ul>
                     </div>
@@ -227,9 +233,9 @@
                     <a href="#" class="next next-navigation"><img src="<?php echo base_url("frontend")."/";?>images/next.png"></a>
                     <div class="carousel carousel-navigation">
                         <ul>
-                            <?php for($y=0; $y<$length; $y++) { if($modelimages[$y]->type == "1") { ?>
-                            <li><img src="<?php echo base_url("uploads")."/".$modelimages[$y]->image ?>" alt=""></li>         <?php } else { if($modelimages[$y]->type=="0") {  ?>
-                            <li><img src='<?php echo base_url("uploads")."/".$modelimages[$y]->image ?>' alt="" style="float: left;"><img src="<?php echo base_url("uploads")."/".$modelimages[++$y]->image ?>"  alt="" style="float: left;"></li>
+                            <?php for($y=0; $y<$length; $y++) { if($albumimages[$y]->type == "1") { ?>
+                            <li><img src="<?php echo base_url("uploads")."/".$albumimages[$y]->image ?>" alt=""></li>         <?php } else { if($albumimages[$y]->type=="0") {  ?>
+                            <li><img src='<?php echo base_url("uploads")."/".$albumimages[$y]->image ?>' alt="" style="float: left;"><img src="<?php echo base_url("uploads")."/".$albumimages[++$y]->image ?>"  alt="" style="float: left;"></li>
                             <?php } } }; ?>
                             
                         </ul>
@@ -240,6 +246,23 @@
 
 
 
+            </div>
+            <div id="beauty">
+                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url("frontend")."/";?>images/photographers/album/coverstories/miguel_1.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
+                
+                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url("frontend")."/";?>images/photographers/album/coverstories/miguel_2.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
+                
+                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url("frontend")."/";?>images/photographers/album/coverstories/miguel_3.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
+                
+                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url("frontend")."/";?>images/photographers/album/coverstories/miguel_4.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
+                
+                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url("frontend")."/";?>images/photographers/album/coverstories/miguel_5.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
+                
+                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url("frontend")."/";?>images/photographers/album/coverstories/miguel_6.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>
+                
+                <div class="col-h model_single"><a href="#"><img src="<?php echo base_url("frontend")."/";?>images/photographers/album/coverstories/miguel_7.jpg" class="display" alt="1"><span class="photo_name">Portugal cover stories</span></a></div>    
+
+            
             </div>
             
             
@@ -261,10 +284,55 @@
             </div>
             
             
+            <div id="videos">
+                <div class="vid">
+                <?php foreach($modelvideos as $video) {?>
+                <iframe src="<?php echo $video->video; ?>"  width="50%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <?php }; ?>
+                </div>    
+                
+                <div class="video_thumb">
+                   <?php foreach($modelvideos as $video) {?>
+                    <div class="thumbs"><img src="<?php echo base_url("frontend")."/";?>images/video/thumb1.jpg"><span><?echo $video->video; ?></span></div>
+                    <?php }; ?>
+
+                </div>
             
+            </div>
             
-           
+            <div class="big_video">
+                <iframe src="//player.vimeo.com/video/19457624"  width="750" height="510" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            </div>
+
+            <div id="bio">
+                <div class="bio_inner">
+                    <img src="<?php echo base_url("uploads")."/".$model->image ?>">
+                    <p><?php echo $model->bio; ?></p><br /><br />
+                    <p><strong>Magazines</strong></p>
+                    <table border="0" class="bio_table">
+                        <tr>
+                            <td><a href="#">Magzine</a></td>
+                            <td><a href="#">Magzine</a></td>
+                            <td><a href="#">Magzine</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">Magzine</a></td>
+                            <td><a href="#">Magzine</a></td>
+                            <td><a href="#">Magzine</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">Magzine</a></td>
+                            <td><a href="#">Magzine</a></td>
+                            <td><a href="#">Magzine</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="bio_inner">
+                    <p></p>                </div>
+                
+                                 
             
+            </div>
     
         </div>
         
@@ -274,7 +342,7 @@
 	
 
 	<!--/#scripts--> 
-    <!--script language=JavaScript>
+    <script language=JavaScript>
 <!--
 
 //Disable right mouse click Script
@@ -310,8 +378,8 @@ document.onmousedown=clickIE4;
 
 document.oncontextmenu=new Function("alert(message);return false")
 
-// > 
-</script-->
+// --> 
+</script>
     <!--<script type="text/javascript" src="<?php echo base_url("frontend")."/";?>js/jquery.js"></script>-->
     <script type="text/javascript" src="<?php echo base_url("frontend")."/";?>js/custom.js"></script>
     <script type="text/javascript" src="<?php echo base_url("frontend")."/";?>js/jquery.instastream.js"></script>

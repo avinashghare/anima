@@ -69,7 +69,7 @@
             <div class="photographers">
                <?php foreach($photographers as $photographer) { ?>
                
-                <div class="col-5 model_single"><a href="<?php echo site_url("website/creativeinner?id=").$photographer->id ?>"><img src="<?php echo base_url("uploads")."/".$photographer->image;?>" class="displayed" alt="1"><span class="model_name"><?php echo $photographer->name; ?><br /><?php echo $photographer->city; ?></span></a></div>
+                <div class="col-5 model_single"><a href="<?php if($creativecatname != "Photographers") { echo site_url("website/creativealbuminner?id=").$photographer->id; }else { echo site_url("website/creativeinner?id=").$photographer->id; }; ?>"><img src="<?php echo base_url("uploads")."/".$photographer->image;?>" class="displayed" alt="1"><span class="model_name"><?php echo $photographer->name; ?><br /><?php echo $photographer->city; ?></span></a></div>
                 
                 <?php } ?>              
             </div>
