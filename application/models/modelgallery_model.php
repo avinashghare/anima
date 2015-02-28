@@ -56,8 +56,9 @@ class modelgallery_model extends CI_Model
     
 	function viewmodelgallerybymodel($id)
 	{
-		$query="SELECT `modelgallery`.`id`,`modelgallery`.`model`, `modelgallery`.`image`, `anima_model`.`name` AS `modelname`
-        FROM `modelgallery` LEFT OUTER JOIN `anima_model` ON `anima_model`.`id`=`modelgallery`.`model` WHERE `modelgallery`.`model`='$id'";
+		$query="SELECT `modelgallery`.`id`,`modelgallery`.`model`,`modelgallery`.`title`,`modelgallery`.`order`, `modelgallery`.`image`, `anima_model`.`name` AS `modelname`
+        FROM `modelgallery` LEFT OUTER JOIN `anima_model` ON `anima_model`.`id`=`modelgallery`.`model` WHERE `modelgallery`.`model`='$id'
+        ORDER BY `modelgallery`.`order` ";
         $result=$this->db->query($query)->result();
         
         return $result;
