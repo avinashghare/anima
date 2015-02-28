@@ -573,15 +573,27 @@ class Site extends CI_Controller
         $data["redirect"]="site/viewinstagram";
         $this->load->view("redirect",$data);
     }
+//    public function viewnews()
+//    {
+//        $access=array("1");
+//        $this->checkaccess($access);
+//        $data["page"]="viewnews";
+//        $data["base_url"]=site_url("site/viewnewsjson");
+//        $data["title"]="View news";
+//        $this->load->view("template",$data);
+//    }
+    
     public function viewnews()
     {
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="viewnews";
-        $data["base_url"]=site_url("site/viewnewsjson");
+        $data["table"]=$this->sliderthree_model->viewnews();
         $data["title"]="View news";
         $this->load->view("template",$data);
     }
+    
+
     function viewnewsjson()
     {
         $elements=array();
@@ -1939,15 +1951,15 @@ class Site extends CI_Controller
 //        $this->load->view("template",$data);
 //    }
     
-    public function viewphotographer()
-    {
-        $access=array("1");
-        $this->checkaccess($access);
-        $data["page"]="viewphotographer";
-        $data["table"]=$this->sliderthree_model->viewphotographer();
-        $data["title"]="View photographer";
-        $this->load->view("template",$data);
-    }
+//    public function viewphotographer()
+//    {
+//        $access=array("1");
+//        $this->checkaccess($access);
+//        $data["page"]="viewphotographer";
+//        $data["table"]=$this->sliderthree_model->viewphotographer();
+//        $data["title"]="View photographer";
+//        $this->load->view("template",$data);
+//    }
     function viewphotographeralbumjson()
     {
         $elements=array();
@@ -3275,6 +3287,8 @@ class Site extends CI_Controller
     
     
     
+    
+    
     public function createphotographeralbumgallery()
 	{
 		$access = array("1");
@@ -4007,6 +4021,33 @@ class Site extends CI_Controller
         $order=$this->input->get('order');
         $id=$this->input->get('id');
         $data1=$this->sliderthree_model->savemainphotographerorder($id,$order);
+        $data["message"]=$data1;
+        $this->load->view("json",$data);
+  
+    }
+    public function savemainphotographeralbumorder()
+    {
+        $order=$this->input->get('order');
+        $id=$this->input->get('id');
+        $data1=$this->sliderthree_model->savemainphotographeralbumorder($id,$order);
+        $data["message"]=$data1;
+        $this->load->view("json",$data);
+  
+    }
+    public function savemainphotographeralbumgalleryorder()
+    {
+        $order=$this->input->get('order');
+        $id=$this->input->get('id');
+        $data1=$this->sliderthree_model->savemainphotographeralbumgalleryorder($id,$order);
+        $data["message"]=$data1;
+        $this->load->view("json",$data);
+  
+    }
+    public function savemainnewsorder()
+    {
+        $order=$this->input->get('order');
+        $id=$this->input->get('id');
+        $data1=$this->sliderthree_model->savemainnewsorder($id,$order);
         $data["message"]=$data1;
         $this->load->view("json",$data);
   

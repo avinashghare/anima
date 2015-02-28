@@ -57,7 +57,7 @@ class photographeralbumgallery_model extends CI_Model
 	function viewphotographeralbumgallerybyphotographeralbum($id)
 	{
 		$query="SELECT `photographeralbumgallery`.`id`,`photographeralbumgallery`.`title`,`photographeralbumgallery`.`photographeralbum`, `photographeralbumgallery`.`image`, `anima_photographeralbum`.`name` AS `photographeralbumname`
-        FROM `photographeralbumgallery` LEFT OUTER JOIN `anima_photographeralbum` ON `anima_photographeralbum`.`id`=`photographeralbumgallery`.`photographeralbum` WHERE `photographeralbumgallery`.`photographeralbum`='$id'";
+        FROM `photographeralbumgallery` LEFT OUTER JOIN `anima_photographeralbum` ON `anima_photographeralbum`.`id`=`photographeralbumgallery`.`photographeralbum` WHERE `photographeralbumgallery`.`photographeralbum`='$id' ORDER BY `photographeralbumgallery`.`order`";
         $result=$this->db->query($query)->result();
         
         return $result;

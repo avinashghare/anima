@@ -13,7 +13,7 @@
             <div class="panel-body">
                 <form class='form-horizontal tasi-form' method='post' action='<?php echo site_url("site/createphotographeralbumgalleryimagesubmit");?>' enctype='multipart/form-data'>
                        
-                        <div class=" form-group">
+                        <div class=" form-group" style="display:none;">
                             <label class="col-sm-2 control-label" for="normal-field">Photographer Album Gallery</label>
                             <div class="col-sm-4">
                                 <input type="text" id="normal-field" class="form-control" name="photographeralbumgalleryid" value='<?php echo set_value(' photographeralbumgalleryid ',$photographeralbumgalleryid);?>'>
