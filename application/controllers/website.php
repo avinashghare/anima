@@ -86,8 +86,9 @@ $data["newss"]=$this->news_model->getall();
         $creativeid = $this->input->get_post("creative");
         //GALLERY ID
         $galleryid = $this->input->get_post("id");
+        $data["galleryid"] = $galleryid;
         //CAT OF ARTIST
-        $data["creativecat"] = $this->photographercategory_model->getsinglephotographercategory($creativeid);
+        $data["creativecat"] = $this->photographercategory_model->getphotographercategory($creativeid);
         //PHOTOGRAPHER DETAILS
         $data["photographer"] = $this->photographer_model->getsinglephotographer($creativeid);
         //GET PHOTOGRAPHER CATEGORIES
@@ -121,17 +122,21 @@ $data["newss"]=$this->news_model->getall();
         //FIND FIRST ALBUM
         $albumgallery = $this->photographeralbum_model->getfirstalbumgallery($creativeid);
         //REDIRCT TO NEW PAGE WITH GALLERY ID AND MODEL ID
-        $newurl=site_url("website/galleryartist?id=$albumgallery->photographeralbum&creative=$creativeid");
+        $newurl=site_url("website/galleryartist?id=$albumgallery->id&creative=$creativeid");
         header("Location: $newurl");
     }
     public function galleryartist()
     {
         //ID OF ARTIST
         $creativeid = $this->input->get_post("creative");
-        //GALLERY ID
         $data["creativeid"]=$creativeid;
-        $data["creativename"]=$this->photographer_model->getname($creativeid);
+        //GALLERY ID
         $album = $this->input->get_post("id");
+        $data["albumid"] = $album;
+        //GET ARTIST NAME
+        $data["creativename"]=$this->photographer_model->getname($creativeid);
+        //GET ARTIST CATEGORY
+        $data["creativecat"]=$this->photographercategory_model->getphotographercategory($creativeid);
         //GET PHOTOGRAPHER CATEGORIES
         $data["photographeralbums"] = $this->photographeralbumgallery_model->getallalbumgallerybyartist($creativeid);
         $data["albumimages"] = $this->photographeralbumgallery_model->getallimagesbyalbum($album);

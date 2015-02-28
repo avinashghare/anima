@@ -200,12 +200,12 @@
         <div class="container" style="margin-top: 0;">
            
             <div class="tab_menu">
-                <a style="cursor:pointer;" onclick="goBack();">BACK</a>
-                <a href="<?php echo site_url("website/models?id=").$photographeralbums->id; ?>"><?php echo $photographeralbums->title; ?></a><span class="photographer_name model_up_name"><i><?php echo $creativename->name; ?></i></span>
+                <a style="cursor:pointer;" href="<?php echo site_url("website")."/creativeartists?id=".$creativecat->id."&name=".$creativecat->name; ?>">BACK</a>
+                <a href="#"><?php echo $photographeralbums->title; ?></a><span class="photographer_name model_up_name"><i><?php echo $creativename->name; ?></i></span>
             </div>
             <div class="photo_tabs" style="padding-top: 0;">
                <?php foreach($photographeralbums as $gal) { ?>
-                <a href="<?php echo site_url("website/galleryartist?id=").$gal->id."&creative=".$creativeid; ?>" id="editorial_tab"><?php echo $gal->title ?></a>
+                <a href="<?php echo site_url("website/galleryartist?id=").$gal->id."&creative=".$creativeid; ?>" id="<?php if($albumid == $gal->id) { echo "editorial_tab"; }; ?>" ><?php echo $gal->title ?></a>
                 <?php } ?>
                 
             </div>

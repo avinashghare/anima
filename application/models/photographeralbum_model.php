@@ -81,7 +81,7 @@ class photographeralbum_model extends CI_Model
 	}
     public function getfirstalbumgallery($id)
     {
-        $query=$this->db->query("SELECT `photographeralbumgallery`.`photographeralbum` FROM `photographeralbumgallery` INNER JOIN `anima_photographeralbum` ON `photographeralbumgallery`.`photographeralbum` = `anima_photographeralbum`.`id` WHERE `anima_photographeralbum`.`photographer` = '$id' ORDER BY `photographeralbumgallery`.`order` LIMIT 0,1")->row();
+        $query=$this->db->query("SELECT `photographeralbumgallery`.`id` FROM `photographeralbumgallery` INNER JOIN `anima_photographeralbum` ON `photographeralbumgallery`.`photographeralbum` = `anima_photographeralbum`.`id` WHERE `anima_photographeralbum`.`photographer` = '$id' ORDER BY `photographeralbumgallery`.`order` LIMIT 0,1")->row();
 		return $query;
     }
 }

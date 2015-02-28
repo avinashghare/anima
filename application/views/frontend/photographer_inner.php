@@ -135,12 +135,11 @@
 
         <div class="container">
             <div class="tab_menu">
-                <a href="<?php echo site_url("website/creativeartists?id=").$photographer->id."&name=".$creativecat->name; ?>">Back</a>
-                <?php echo $creativecat->name?><span class="photographer_name"><i><?php echo $photographer->name; ?> - <?php echo $photographer->city; ?></i></span>
+                <a href="<?php echo site_url("website/creativeartists?id=").$photographer->id."&name=".$creativecat->name; ?>"><?php echo $creativecat->name?></a><span class="photographer_name"><i><?php echo $photographer->name; ?> - <?php echo $photographer->city; ?></i></span>
             </div>
             <div class="photo_tabs">
                <?php foreach($photographercats as $photographercat) { ?>
-                <a href="<?php echo site_url("website/artistgallery?id=").$photographercat->id."&creative=".$photographer->id;;?>" id="editorial_tab"><?php echo $photographercat->name; ?></a>
+                <a href="<?php echo site_url("website/artistgallery?id=").$photographercat->id."&creative=".$photographer->id;;?>" id=<?php if($photographercat->id == $galleryid){ echo "editorial_tab"; }; ?> ><?php echo $photographercat->name; ?></a>
                 <?php } ?>
 <!--
                 <a href="#" id="videos_tab">Videos</a>

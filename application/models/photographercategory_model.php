@@ -64,5 +64,10 @@ class photographercategory_model extends CI_Model
 		$query=$this->db->query("SELECT * FROM `photographercategory`  ORDER BY `id` ASC")->result();
 		return $query;
 	}
+    public function getphotographercategory($id)
+    {
+        $query=$this->db->query("SELECT `photographercategory`.`id`,`photographercategory`.`name` FROM `photographercategory` INNER JOIN `anima_photographer` ON `anima_photographer`.`category` = `photographercategory`.`id` WHERE  `anima_photographer`.`id`='$id'")->row();
+		return $query;
+    }
 }
 ?>
