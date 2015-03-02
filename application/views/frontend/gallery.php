@@ -41,9 +41,9 @@
              var stageHeight = winHeight - 70;
              var img_height = stageHeight - 10;
              $('.connected-carousels .carousel-stage').css('height', stageHeight);
-             $('.two_img img').css('height', img_height);
-             $('.first_img').css('height', img_height);
-             $('.model_info').css('height', stageHeight - 10);
+             $('.two_img img').css('min-height', img_height);
+             $('.first_img').css('min-height', img_height);
+             $('.model_info').css('height', stageHeight - 3);
          }
          $('.prev-stage').trigger("click");
          $('.prev-navigation').trigger("click");
@@ -181,6 +181,10 @@
         .wrapper { width: 1024px;}
         .model_single img, .photo_name{display: none;}
         .photo_tabs, .tab_menu{ height: auto; padding-bottom: 5px;}
+        .photo_tabs {     margin-right: 2% !important; }
+        
+        .tab_menu{ margin-left: 0.5% !important; }
+
         .double_img{ margin-left: 1%; }
         .double_img img, .first_img img{max-width: 49%; min-width: 49%;}
         @media screen and (min-width: 1024px){
@@ -205,8 +209,12 @@
                <?php foreach($gallery as $gal) { ?>
                 <a href="<?php echo site_url("website/modelgallery?id=").$gal->id."&model=".$model->id; ?>" id="editorial_tab"><?php echo $gal->title ?></a>
                 <?php } ?>
+                <?php if(count($modelvideos) != 0) { ?>
                 <a href="#" id="videos_tab">videos</a>
+                <?php }; ?>
+                <?php if($model->bio != "") { ?>
                 <a href="#" id="bio_tab">bio</a>
+                <?php }; ?>
             </div>
 
             <div id="editorial">
@@ -333,24 +341,7 @@
                 <div class="bio_inner">
                     <img src="<?php echo base_url("uploads")."/".$model->image ?>">
                     <p><?php echo $model->bio; ?></p><br /><br />
-                    <p><strong>Magazines</strong></p>
-                    <table border="0" class="bio_table">
-                        <tr>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                        </tr>
-                    </table>
+                    
                 </div>
                 <div class="bio_inner">
                     <p></p>                </div>

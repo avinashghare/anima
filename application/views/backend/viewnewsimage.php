@@ -3,7 +3,7 @@
 	<div class="col-lg-12">
 		<section class="panel">
 			<header class="panel-heading">
-                News Image Details<a class="btn btn-primary pull-right" href="<?php echo site_url("site/createnewsimage?id=").$this->input->get('id'); ?>"><i class="icon-plus"></i>Create </a><a class="btn btn-primary pull-right savenewsorder">Save Order</a>
+                News Image Details<a class="btn btn-primary pull-right" href="<?php echo site_url("site/createnewsimage?modelgalleryid=").$this->input->get('id'); ?>"><i class="icon-plus"></i>Create </a><a class="btn btn-primary pull-right savenewsorder">Save Order</a>
      
             </header>
            

@@ -18,7 +18,6 @@
                             <th data-field="title">Title</th>
 <!--                            <th data-field="json">Json</th>-->
                             <th data-field="content">Content</th>
-                            <th data-field="Action">Action</th>
                         </tr>
                     </thead>
                     <tbody>

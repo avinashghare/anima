@@ -200,7 +200,7 @@
         <div class="container" style="margin-top: 0;">
            
             <div class="tab_menu">
-                <a style="cursor:pointer;" href="<?php echo site_url("website")."/creativeartists?id=".$creativecat->id."&name=".$creativecat->name; ?>">BACK</a>
+                <a style="cursor:pointer;" href="<?php echo site_url("website")."/creativeartists?id=".$creativecat->id."&name=".$creativecat->name; ?>"> <?php echo $creativecat->name; ?> </a>
                 <a href="#"><?php echo $photographeralbums->title; ?></a><span class="photographer_name model_up_name"><i><?php echo $creativename->name; ?></i></span>
             </div>
             <div class="photo_tabs" style="padding-top: 0;">

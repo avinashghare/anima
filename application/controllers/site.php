@@ -573,27 +573,15 @@ class Site extends CI_Controller
         $data["redirect"]="site/viewinstagram";
         $this->load->view("redirect",$data);
     }
-//    public function viewnews()
-//    {
-//        $access=array("1");
-//        $this->checkaccess($access);
-//        $data["page"]="viewnews";
-//        $data["base_url"]=site_url("site/viewnewsjson");
-//        $data["title"]="View news";
-//        $this->load->view("template",$data);
-//    }
-    
     public function viewnews()
     {
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="viewnews";
-        $data["table"]=$this->sliderthree_model->viewnews();
+        $data["base_url"]=site_url("site/viewnewsjson");
         $data["title"]="View news";
         $this->load->view("template",$data);
     }
-    
-
     function viewnewsjson()
     {
         $elements=array();
@@ -946,29 +934,15 @@ class Site extends CI_Controller
         $data["redirect"]="site/viewcategory";
         $this->load->view("redirect",$data);
     }
-//    public function viewmodel()
-//    {
-//        $access=array("1");
-//        $this->checkaccess($access);
-//        $data["page"]="viewmodel";
-//        $data["base_url"]=site_url("site/viewmodeljson");
-//        $data["title"]="View model";
-//        $this->load->view("template",$data);
-//    }
-    
     public function viewmodel()
     {
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="viewmodel";
-//        $data["before"]=$this->sliderone_model->beforeedit($this->input->get("id"));
-        $data["table"]=$this->sliderthree_model->viewmodel();
-//        print_r($data["table"]);
-//        $data["base_url"]=site_url("site/viewmodelimagejson?id=$modelid");
-        $data["title"]="View Model";
+        $data["base_url"]=site_url("site/viewmodeljson");
+        $data["title"]="View model";
         $this->load->view("template",$data);
     }
-
     function viewmodeljson()
     {
         $elements=array();
@@ -1671,22 +1645,12 @@ class Site extends CI_Controller
         $data["redirect"]="site/viewmodelvideo?id=".$modelid;
         $this->load->view("redirect",$data);
     }
-//    public function viewphotographer()
-//    {
-//        $access=array("1");
-//        $this->checkaccess($access);
-//        $data["page"]="viewphotographer";
-//        $data["base_url"]=site_url("site/viewphotographerjson");
-//        $data["title"]="View photographer";
-//        $this->load->view("template",$data);
-//    }
-    
     public function viewphotographer()
     {
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="viewphotographer";
-        $data["table"]=$this->sliderthree_model->viewphotographer();
+        $data["base_url"]=site_url("site/viewphotographerjson");
         $data["title"]="View photographer";
         $this->load->view("template",$data);
     }
@@ -1936,30 +1900,10 @@ class Site extends CI_Controller
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="viewphotographeralbum";
-        $data["table"]=$this->sliderthree_model->viewphotographeralbum();
-        $data["title"]="View Creative Artist Album";
+        $data["base_url"]=site_url("site/viewphotographeralbumjson");
+        $data["title"]="View photographeralbum";
         $this->load->view("template",$data);
     }
-    
-//    public function viewphotographeralbum()
-//    {
-//        $access=array("1");
-//        $this->checkaccess($access);
-//        $data["page"]="viewphotographeralbum";
-//        $data["base_url"]=site_url("site/viewphotographeralbumjson");
-//        $data["title"]="View photographeralbum";
-//        $this->load->view("template",$data);
-//    }
-    
-//    public function viewphotographer()
-//    {
-//        $access=array("1");
-//        $this->checkaccess($access);
-//        $data["page"]="viewphotographer";
-//        $data["table"]=$this->sliderthree_model->viewphotographer();
-//        $data["title"]="View photographer";
-//        $this->load->view("template",$data);
-//    }
     function viewphotographeralbumjson()
     {
         $elements=array();
@@ -3066,32 +3010,6 @@ class Site extends CI_Controller
 		$this->load->view('templatewith2',$data);
 	}
     
-//    function viewmodelgallery()
-//	{
-//		$access = array("1");
-//		$this->checkaccess($access);
-//        $modelid=$this->input->get('id');
-//		$data['before']=$this->model_model->beforeedit($modelid);
-//		$data['table']=$this->modelgallery_model->viewmodelgallerybymodel($modelid);
-//		$data['page']='viewmodelgallery';
-//		$data['page2']='block/modelblock';
-//        $data['title']='View model Image';
-//		$this->load->view('templatewith2',$data);
-//	}
-    
-//    public function viewmodel()
-//    {
-//        $access=array("1");
-//        $this->checkaccess($access);
-//        $data["page"]="viewmodel";
-////        $data["before"]=$this->sliderone_model->beforeedit($this->input->get("id"));
-//        $data["table"]=$this->sliderthree_model->viewmodel();
-////        print_r($data["table"]);
-////        $data["base_url"]=site_url("site/viewmodelimagejson?id=$modelid");
-//        $data["title"]="View Model";
-//        $this->load->view("template",$data);
-//    }
-
     
     
     public function createmodelgallery()
@@ -3284,8 +3202,6 @@ class Site extends CI_Controller
         $data['title']='View Gallery';
 		$this->load->view('templatewith2',$data);
 	}
-    
-    
     
     
     
@@ -3992,62 +3908,6 @@ class Site extends CI_Controller
         $order=$this->input->get('order');
         $id=$this->input->get('id');
         $data1=$this->sliderthree_model->savesliderthreeorder($id,$order);
-        $data["message"]=$data1;
-        $this->load->view("json",$data);
-  
-    }
-    public function savemainmodelorder()
-    {
-        $order=$this->input->get('order');
-        $id=$this->input->get('id');
-        $data1=$this->sliderthree_model->savemainmodelorder($id,$order);
-        $data["message"]=$data1;
-        $this->load->view("json",$data);
-  
-    }
-    public function savemainmodelgalleryorder()
-    {
-        $order=$this->input->get('order');
-        $id=$this->input->get('id');
-//        echo "idstart".$id."idend";
-//        echo "orderstart".$order."orderend";
-        $data1=$this->sliderthree_model->savemainmodelgalleryorder($id,$order);
-        $data["message"]=$data1;
-        $this->load->view("json",$data);
-  
-    }
-    public function savemainphotographerorder()
-    {
-        $order=$this->input->get('order');
-        $id=$this->input->get('id');
-        $data1=$this->sliderthree_model->savemainphotographerorder($id,$order);
-        $data["message"]=$data1;
-        $this->load->view("json",$data);
-  
-    }
-    public function savemainphotographeralbumorder()
-    {
-        $order=$this->input->get('order');
-        $id=$this->input->get('id');
-        $data1=$this->sliderthree_model->savemainphotographeralbumorder($id,$order);
-        $data["message"]=$data1;
-        $this->load->view("json",$data);
-  
-    }
-    public function savemainphotographeralbumgalleryorder()
-    {
-        $order=$this->input->get('order');
-        $id=$this->input->get('id');
-        $data1=$this->sliderthree_model->savemainphotographeralbumgalleryorder($id,$order);
-        $data["message"]=$data1;
-        $this->load->view("json",$data);
-  
-    }
-    public function savemainnewsorder()
-    {
-        $order=$this->input->get('order');
-        $id=$this->input->get('id');
-        $data1=$this->sliderthree_model->savemainnewsorder($id,$order);
         $data["message"]=$data1;
         $this->load->view("json",$data);
   

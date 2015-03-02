@@ -28,19 +28,18 @@
         <div class="container">
             <div class="banner">
                 <div class="fade" id="one">
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/1.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/2.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/3.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/4.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/5.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/6.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/7.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/8.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/9.jpg" alt="1"></div>
-                    <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/10.jpg" alt="1"></div>
+                    <div class="col-4"><img src="<?php echo base_url("frontend")."/";?>images/banner/1.jpg" alt="1"></div>
+                    <div class="col-4"><img src="<?php echo base_url("frontend")."/";?>images/banner/2.jpg" alt="1"></div>
+                    <div class="col-4"><img src="<?php echo base_url("frontend")."/";?>images/banner/3.jpg" alt="1"></div>
+                    <div class="col-4"><img src="<?php echo base_url("frontend")."/";?>images/banner/4.jpg" alt="1"></div>
+                    <div class="col-4"><img src="<?php echo base_url("frontend")."/";?>images/banner/5.jpg" alt="1"></div>
+                    <div class="col-4"><img src="<?php echo base_url("frontend")."/";?>images/banner/6.jpg" alt="1"></div>
+                    <div class="col-4"><img src="<?php echo base_url("frontend")."/";?>images/banner/7.jpg" alt="1"></div>
+                    <div class="col-4"><img src="<?php echo base_url("frontend")."/";?>images/banner/8.jpg" alt="1"></div>
+              
                 </div>
                 <div class="fade" id="two">
-                    <div class="col-2"><img src="<?php echo base_url("frontend")."/";?>images/banner/s_1.jpg" alt="1"></div>
+                    <div class="col-2"><img src="<?php echo base_url("frontend")."/";?>images/banner/s_1.jpg" alt="1" style="padding-left: 10%"></div>
                     <div class="col-2"><img src="<?php echo base_url("frontend")."/";?>images/banner/s_2.jpg" alt="1"></div>
                     <!--<div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/6.jpg" alt="1"></div>
                     <div class="col-5"><img src="<?php echo base_url("frontend")."/";?>images/banner/1.jpg" alt="1"></div>
