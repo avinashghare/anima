@@ -70,9 +70,8 @@ class photographeralbum_model extends CI_Model
         return 1;
     }
     public function getfirstgallery($id) {
-        $query=$this->db->query("SELECT `anima_photographeralbum`.`id` AS `id` FROM  `anima_photographeralbum` INNER JOIN `anima_photographer` ON `anima_photographer`.`id` = `anima_photographeralbum`.`photographer` WHERE `anima_photographer`.`id` = '$id' ORDER BY `anima_photographeralbum`.`order` LIMIT 0,1 ")->row();
-        return $query->id;
-        
+        $query=$this->db->query("SELECT `anima_photographeralbum`.`id` AS `id` FROM  `anima_photographeralbum` WHERE `anima_photographeralbum`.`photographer` = '$id' ORDER BY `anima_photographeralbum`.`order` LIMIT 0,1 ")->row();
+    return $query->id;    
     }
     public function getallbyartist($id)
 	{
@@ -81,7 +80,7 @@ class photographeralbum_model extends CI_Model
 	}
     public function getfirstalbumgallery($id)
     {
-        $query=$this->db->query("SELECT `photographeralbumgallery`.`id` FROM `photographeralbumgallery` INNER JOIN `anima_photographeralbum` ON `photographeralbumgallery`.`photographeralbum` = `anima_photographeralbum`.`id` WHERE `anima_photographeralbum`.`photographer` = '$id' ORDER BY `photographeralbumgallery`.`order` LIMIT 0,1")->row();
+        $query=$this->db->query("SELECT `photographeralbumgallery`.`id` FROM `photographeralbumgallery` INNER JOIN `anima_photographeralbum` ON `photographeralbumgallery`.`photographeralbum` = `anima_photographeralbum`.`id` WHERE `anima_photographeralbum`.`photographer` = '$id' ORDER BY `anima_photographeralbum`.`order` LIMIT 0,1")->row();
 		return $query;
     }
 }

@@ -65,7 +65,8 @@
 
 
         <div class="container">
-            <span class="title_section"><?php echo $creativecatname?></span>
+            <span class="title_section"><?php echo $category->name; ?></span>
+            <?php if(count($photographers) != 0) { ?>
             <div class="photographers">
                <?php foreach($photographers as $photographer) { ?>
                
@@ -73,7 +74,7 @@
                 
                 <?php } ?>              
             </div>
-            
+            <?php } else{ echo "</br> There are no artists in this category yet"; }; ?>
             <?php include('footer.php'); ?>        
         </div>
     </div>

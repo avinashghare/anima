@@ -66,6 +66,7 @@ $data["newss"]=$this->news_model->getall();
         $creativecat = $this->input->get_post("id");
         //GET CATEGORY NAME
         $data["creativecatname"] = $this->input->get_post("name");
+        $data["category"] = $this->photographercategory_model->beforeedit($creativecat);
         //GET ARTISTS OF THIS CATEGORY
         $data["photographers"] = $this->photographer_model->getphotographerbycat($creativecat);
         $this->load->view("frontend/photographers",$data);

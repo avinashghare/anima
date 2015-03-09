@@ -205,8 +205,8 @@
                <?php foreach($gallery as $gal) { ?>
                 <a href="<?php echo site_url("website/modelgallery?id=").$gal->id."&model=".$model->id; ?>" <?php if($gal->id == $galleryid) { ?> id="editorial_tab" <?php }; ?> ><?php echo $gal->title ?></a>
                 <?php } ?>
-                <a href="#" id="videos_tab">videos</a>
-                <a href="#" id="bio_tab">bio</a>
+                <?php if($model->video != "") { ?><a href="#" id="videos_tab">videos</a><?php }; ?>
+                <?php if($model->bio != "") { ?><a href="#" id="bio_tab">bio</a> <?php }; ?>
             </div>
 
             <div id="editorial">
@@ -220,9 +220,10 @@
                                     <a href="<?php echo site_url("website/models?id=").$model->category; ?>" class="black_link">
                                     <div class="model_info">
                                         <img src="<?php echo base_url("frontend")."/";?>images/logo.png" class="small_logo">
+                                        
                                         <table align="center" class="model_table">
                                             <!--<tr><td colspan="2"><img src="<?php echo base_url("frontend")."/";?>images/mobile_logo.png" height="18"></td></tr>-->
-<!--                                            <?php print_r($model->json);  ?>-->
+                                            
                                             <tr><td colspan="2" class="model_n"><center><?php echo $model->name ?></center></td></tr>
                                             <tr><td class="att">height</td><td class="value"><?php echo $model->json[0]->value; ?></td></tr>
                                             <tr><td class="att">bust</td><td class="value"><?php echo $model->json[1]->value; ?></td></tr>
@@ -333,24 +334,8 @@
                 <div class="bio_inner">
                     <img src="<?php echo base_url("uploads")."/".$model->image ?>">
                     <p><?php echo $model->bio; ?></p><br /><br />
-                    <p><strong>Magazines</strong></p>
-                    <table border="0" class="bio_table">
-                        <tr>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                            <td><a href="#">Magzine</a></td>
-                        </tr>
-                    </table>
+                    
+                    
                 </div>
                 <div class="bio_inner">
                     <p></p>                </div>

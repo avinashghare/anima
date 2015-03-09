@@ -135,7 +135,7 @@
 
         <div class="container">
             <div class="tab_menu">
-                <a href="<?php echo site_url("website/creativeartists?id=").$photographer->id."&name=".$creativecat->name; ?>"><?php echo $creativecat->name?></a><span class="photographer_name"><i><?php echo $photographer->name; ?> - <?php echo $photographer->city; ?></i></span>
+                <a href="<?php echo site_url("website/creativeartists?id=").$creativecat->id."&name=".$creativecat->name; ?>"><?php echo $creativecat->name?></a><span class="photographer_name"><i><?php echo $photographer->name; ?> - <?php echo $photographer->city; ?></i></span>
             </div>
             <div class="photo_tabs">
                <?php foreach($photographercats as $photographercat) { ?>
