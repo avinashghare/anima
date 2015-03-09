@@ -1936,10 +1936,20 @@ class Site extends CI_Controller
         $access=array("1");
         $this->checkaccess($access);
         $data["page"]="viewphotographeralbum";
-        $data["table"]=$this->sliderthree_model->viewphotographeralbum();
+        $photographer=$this->input->post('photographer');
+        $data["table"]=$this->sliderthree_model->viewphotographeralbum($photographer);
         $data["title"]="View Creative Artist Album";
         $this->load->view("template",$data);
     }
+//    public function viewphotographeralbum()
+//    {
+//        $access=array("1");
+//        $this->checkaccess($access);
+//        $data["page"]="viewphotographeralbum";
+//        $data["table"]=$this->sliderthree_model->viewphotographeralbum();
+//        $data["title"]="View Creative Artist Album";
+//        $this->load->view("template",$data);
+//    }
     
 //    public function viewphotographeralbum()
 //    {
@@ -4052,5 +4062,24 @@ class Site extends CI_Controller
         $this->load->view("json",$data);
   
     }
+    
+    public function selectphotographerforalbum()
+    {
+        $access=array("1");
+        $this->checkaccess($access);
+        $data["page"]="selectphotographerforalbum";
+        $data["title"]="Select Creativeartist";
+        $data['photographer']=$this->photographer_model->getphotographerdropdown();
+        $this->load->view("template",$data);
+    }
+//    public function selectphotographerforalbumsubmit()
+//    {
+//        $access=array("1");
+//        $this->checkaccess($access);
+//        $data["page"]="selectphotographerforalbum";
+//        $data["title"]="Select Creativeartist";
+//        $data['photographer']=$this->photographer_model->getphotographerdropdown();
+//        $this->load->view("template",$data);
+//    }
 }
 ?>

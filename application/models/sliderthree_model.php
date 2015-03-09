@@ -119,10 +119,10 @@ ORDER BY `anima_photographer`.`order`";
 //		return $query;
 	}
     
-    public function viewphotographeralbum()
+    public function viewphotographeralbum($photographer)
 	{
 		$query=$this->db->query("SELECT `anima_photographeralbum`.`id`, `anima_photographeralbum`.`name`, `anima_photographeralbum`.`order`, `anima_photographeralbum`.`image`, `anima_photographeralbum`.`tab`, `anima_photographeralbum`.`photographer`,`anima_photographer`.`name` AS `photographername` 
-FROM `anima_photographeralbum` LEFT OUTER JOIN `anima_photographer` ON `anima_photographeralbum`.`photographer`=`anima_photographer`.`id` ORDER BY `order` ASC")->result();
+FROM `anima_photographeralbum` LEFT OUTER JOIN `anima_photographer` ON `anima_photographeralbum`.`photographer`=`anima_photographer`.`id` WHERE `anima_photographeralbum`.`photographer`='$photographer' ORDER BY `order` ASC")->result();
 		return $query;
 	}
     

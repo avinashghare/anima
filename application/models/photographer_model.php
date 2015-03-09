@@ -57,7 +57,6 @@ class photographer_model extends CI_Model
 	{
 		$query=$this->db->query("SELECT * FROM `anima_photographer`  ORDER BY `id` ASC")->result();
 		$return=array(
-		"" => ""
 		);
 		foreach($query as $row)
 		{
