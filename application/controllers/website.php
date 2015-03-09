@@ -46,6 +46,7 @@ $data["newss"]=$this->news_model->getall();
     {
         $modelid = $this->input->get_post("model");
         $galleryid = $this->input->get_post("id");
+        $data["galleryid"] = $galleryid;
         //GET CATEGORY NAME FOR BACK BUTTON NAME
         $data["category"]=$this->model_model->getcategoryname($modelid);
         //GET MODEL DETAILS

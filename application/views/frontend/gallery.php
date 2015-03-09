@@ -207,7 +207,7 @@
             </div>
             <div class="photo_tabs" style="padding-top: 0;">
                <?php foreach($gallery as $gal) { ?>
-                <a href="<?php echo site_url("website/modelgallery?id=").$gal->id."&model=".$model->id; ?>" id="editorial_tab"><?php echo $gal->title ?></a>
+                <a href="<?php echo site_url("website/modelgallery?id=").$gal->id."&model=".$model->id; ?>" <?php if($gal->id == $galleryid) { ?> id="editorial_tab" <?php }; ?> ><?php echo $gal->title ?></a>
                 <?php } ?>
                 <?php if(count($modelvideos) != 0) { ?>
                 <a href="#" id="videos_tab">videos</a>
