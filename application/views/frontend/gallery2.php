@@ -41,9 +41,9 @@
              var stageHeight = winHeight - 70;
              var img_height = stageHeight - 10;
              $('.connected-carousels .carousel-stage').css('height', stageHeight);
-             $('.two_img img').css('min-height', img_height);
-             $('.first_img').css('min-height', img_height);
-             $('.model_info').css('height', stageHeight - 3);
+             $('.two_img img').css('height', img_height);
+             $('.first_img').css('height', img_height);
+             $('.model_info').css('height', stageHeight - 10);
          }
          
          $('.prev-stage').trigger("click");
@@ -179,11 +179,7 @@
     <style>
         .wrapper { width: 1024px;}
         .model_single img, .photo_name{display: none;}
-        .photo_tabs, .tab_menu{ height: auto; padding-bottom: 5px;}        
-        .photo_tabs {     margin-right: 2% !important; }
-        
-        .tab_menu{ margin-left: 0.5% !important; }
-
+        .photo_tabs, .tab_menu{ height: auto; padding-bottom: 5px;}
         .double_img{ margin-left: 1%; }
         .double_img img, .first_img img{max-width: 49%; min-width: 49%;}
         @media screen and (min-width: 1024px){

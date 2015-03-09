@@ -95,6 +95,37 @@ WHERE `sliderthreealbum` IN (SELECT `id` FROM `sliderthreealbum` WHERE `sliderth
 		return $query;
 	}
     
+    public function viewmodel()
+	{
+		$query=$this->db->query("SELECT * FROM `anima_model` ORDER BY `order` ASC")->result();
+		return $query;
+	}
+    
+    public function viewnews()
+	{
+		$query=$this->db->query("SELECT * FROM `anima_news` ORDER BY `order` ASC")->result();
+		return $query;
+	}
+    
+    function viewphotographer()
+	{
+		$query="SELECT `anima_photographer`.`id`, `anima_photographer`.`name`, `anima_photographer`.`city`, `anima_photographer`.`order`, `anima_photographer`.`content`, `anima_photographer`.`image`, `anima_photographer`.`category`, `anima_photographer`.`bio`
+FROM `anima_photographer`
+ORDER BY `anima_photographer`.`order`";
+        $result=$this->db->query($query)->result();
+        
+        return $result;
+        
+//		return $query;
+	}
+    
+    public function viewphotographeralbum()
+	{
+		$query=$this->db->query("SELECT `anima_photographeralbum`.`id`, `anima_photographeralbum`.`name`, `anima_photographeralbum`.`order`, `anima_photographeralbum`.`image`, `anima_photographeralbum`.`tab`, `anima_photographeralbum`.`photographer`,`anima_photographer`.`name` AS `photographername` 
+FROM `anima_photographeralbum` LEFT OUTER JOIN `anima_photographer` ON `anima_photographeralbum`.`photographer`=`anima_photographer`.`id` ORDER BY `order` ASC")->result();
+		return $query;
+	}
+    
     public function savesliderthreeorder($id,$order)
     {
 //        $data=array("order" => $order);
@@ -104,5 +135,36 @@ WHERE `sliderthreealbum` IN (SELECT `id` FROM `sliderthreealbum` WHERE `sliderth
         return 1;
     }
     
+    public function savemainmodelorder($id,$order)
+    {
+        $this->db->query("UPDATE `anima_model` SET `order`='$order' WHERE `id`='$id'");
+        return 1;
+    }
+    
+    public function savemainmodelgalleryorder($id,$order)
+    {
+        $this->db->query("UPDATE `modelgallery` SET `order`='$order' WHERE `id`='$id'");
+        return 1;
+    }
+    public function savemainphotographerorder($id,$order)
+    {
+        $this->db->query("UPDATE `anima_photographer` SET `order`='$order' WHERE `id`='$id'");
+        return 1;
+    }
+    public function savemainphotographeralbumorder($id,$order)
+    {
+        $this->db->query("UPDATE `anima_photographeralbum` SET `order`='$order' WHERE `id`='$id'");
+        return 1;
+    }
+    public function savemainphotographeralbumgalleryorder($id,$order)
+    {
+        $this->db->query("UPDATE `photographeralbumgallery` SET `order`='$order' WHERE `id`='$id'");
+        return 1;
+    }
+    public function savemainnewsorder($id,$order)
+    {
+        $this->db->query("UPDATE `anima_news` SET `order`='$order' WHERE `id`='$id'");
+        return 1;
+    }
 }
 ?>
