@@ -53,7 +53,7 @@
 				<div class=" form-group hidden">
 				  <label class="col-sm-2 control-label" for="normal-field">json</label>
 				  <div class="col-sm-4">
-					<textarea name="json" id="" cols="20" rows="10" class="form-control tinymce fieldjsoninput"><?php echo set_value( 'json',$before->json);?></textarea>
+					<textarea name="json" id="" cols="20" rows="10" class="form-control fieldjsoninput"><?php echo set_value( 'json',$before->json);?></textarea>
 				  </div>
 				</div>
 				<div class="fieldjson"></div>
